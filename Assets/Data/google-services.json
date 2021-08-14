@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "257866748189",
+    "project_id": "trunfo-lab-moveis",
+    "storage_bucket": "trunfo-lab-moveis.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:257866748189:android:979d62ad0176c0bc7bd1f4",
+        "android_client_info": {
+          "package_name": "br.uff.ic.dm.grupolaranja20211"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "257866748189-t52al7508b7475hieskqv8kscvuj7vr6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCISJK3JGo_8jFAvW0O4b4j3icycgJ8unI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "257866748189-t52al7508b7475hieskqv8kscvuj7vr6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
