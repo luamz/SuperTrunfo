@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baae4293e6d90a8459d640903ea20b83, type: 3}
+  m_Name: TipoTeste
+  m_EditorClassIdentifier: 
+  nome: Teste
+  atributos:
+  - "<size=10>POPULA\xC7\xC3O</size><br><size=8>(MILH\xD5ES)</size>"
+  - teste2
+  - teste3
+  - teste4
+  - teste5
