@@ -28,6 +28,7 @@ Cada membro da equipe que for trabalhar com Firebase tem que registrar sua chave
        1.2.3 - rode o comando keytool -list -v -alias androiddebugkey -keystore ~/.android/debug.keystore.
    2 - Abra o Firebase Console e abra o Projeto
    3 - Abra o Project Settings e vá até "Seus Aplicativos" e selecione Super Trunfo.
-   4 - Na seção de Configuração do SDK, adiciona um impressão digital com a chave que encontrou no passo 1.```
+   4 - Na seção de Configuração do SDK, adiciona um impressão digital com a chave que encontrou no passo 1.
+   5- Caso necessário pedir arquivo .so para Daniel```
 
 
