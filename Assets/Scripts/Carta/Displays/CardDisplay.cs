@@ -25,6 +25,13 @@ namespace Trunfo
             Inicializa();
             SetaFrente();
         }
+        
+        void Update()
+        {
+            SetaVerso();
+            SetaFrente();
+        }
+
         private void Inicializa()
         {
             ModeloDeFundo = GetComponent<Image>();

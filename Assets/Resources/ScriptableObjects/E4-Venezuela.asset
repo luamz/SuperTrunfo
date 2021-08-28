@@ -10,10 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 09491715f4acf694b86822e9a6e2de2f, type: 3}
-  m_Name: Bahia
+  m_Name: E4-Venezuela
   m_EditorClassIdentifier: 
-  tipo: {fileID: 0}
-  nome: 
+  tipo: {fileID: 11400000, guid: 3b7656e1ad02d9d4384fe51960e18f14, type: 2}
+  identificacao: E4
+  nome: VENEZUELA
   pontos:
-  - 0
-  artwork: {fileID: 0}
+  - 28.5
+  - 912
+  - 482.3
+  - 32.7
+  - 75
+  artwork: {fileID: 21300000, guid: f93d50fec59e9b67780ca2d8bb388bb3, type: 3}
