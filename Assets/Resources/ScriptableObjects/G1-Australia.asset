@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09491715f4acf694b86822e9a6e2de2f, type: 3}
+  m_Name: G1-Australia
+  m_EditorClassIdentifier: 
+  tipo: {fileID: 11400000, guid: 3b7656e1ad02d9d4384fe51960e18f14, type: 2}
+  identificacao: G1
+  nome: AUSTRALIA
+  pontos:
+  - 25.4
+  - 7741.2
+  - 1396.5
+  - 3.2
+  - 83
+  artwork: {fileID: 21300000, guid: 0d20d81c5c1c7014286a0af2b2ad92c7, type: 3}
