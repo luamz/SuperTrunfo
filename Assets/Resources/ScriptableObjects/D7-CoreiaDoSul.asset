@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 09491715f4acf694b86822e9a6e2de2f, type: 3}
-  m_Name: G1-Australia
+  m_Name: D7-CoreiaDoSul
   m_EditorClassIdentifier: 
   tipo: {fileID: 11400000, guid: 3b7656e1ad02d9d4384fe51960e18f14, type: 2}
-  identificacao: G1
-  nome: AUSTRALIA
+  identificacao: H3
+  nome: COREIA DO SUL
   pontos:
-  - 25.4
-  - 7741.2
-  - 1396.5
-  - 3.2
-  - 83
-  artwork: {fileID: 21300000, guid: 0d20d81c5c1c7014286a0af2b2ad92c7, type: 3}
+  - 51.7
+  - 100.3
+  - 1646.7
+  - 529.1
+  - 81
+  artwork: {fileID: 21300000, guid: b12575712125a6bc793ba0c9c3ed79c3, type: 3}

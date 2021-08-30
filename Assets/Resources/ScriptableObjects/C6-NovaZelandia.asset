@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 09491715f4acf694b86822e9a6e2de2f, type: 3}
-  m_Name: H1-Argentina
+  m_Name: C6-NovaZelandia
   m_EditorClassIdentifier: 
   tipo: {fileID: 11400000, guid: 3b7656e1ad02d9d4384fe51960e18f14, type: 2}
-  identificacao: H1
-  nome: ARGENTINA
+  identificacao: C6
+  nome: NOVA ZELANDIA
   pontos:
-  - 44.9
-  - 2780.4
-  - 445.4
-  - 16.2
-  - 76
-  artwork: {fileID: 21300000, guid: 8ded0be05f975cba18ea9b3ae3353494, type: 3}
+  - 5
+  - 267.7
+  - 209.1
+  - 18.6
+  - 81.7
+  artwork: {fileID: 21300000, guid: 5a6986b74a973de339ff41aa7db7fd61, type: 3}

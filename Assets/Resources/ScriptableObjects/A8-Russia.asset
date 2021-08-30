@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 09491715f4acf694b86822e9a6e2de2f, type: 3}
-  m_Name: C3-Italia
+  m_Name: A8-Russia
   m_EditorClassIdentifier: 
   tipo: {fileID: 11400000, guid: 3b7656e1ad02d9d4384fe51960e18f14, type: 2}
-  identificacao: C3
-  nome: ITALIA
+  identificacao: A8
+  nome: RUSSIA
   pontos:
-  - 59.7
-  - 302
-  - 2004.9
-  - 202.9
-  - 83.1
-  artwork: {fileID: 21300000, guid: 20003b0468394d59fb33507e138c91a9, type: 3}
+  - 144.4
+  - 17098.2
+  - 1687.4
+  - 8.8
+  - 70.5
+  artwork: {fileID: 21300000, guid: 7728c0f1f76a435d68a814ff630716d0, type: 3}
