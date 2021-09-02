@@ -16,10 +16,11 @@ namespace Trunfo
         [SerializeField] private Baralho mao;
         public Baralho Mao { get => mao;}
 
+
         // Start is called before the first frame update
         void Start()
         {
-        
+
         }
 
         // Update is called once per frame

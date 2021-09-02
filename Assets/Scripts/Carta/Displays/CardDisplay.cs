@@ -19,6 +19,7 @@ namespace Trunfo
         [SerializeField] private GameObject modeloDeCriterio;
         public readonly List<CriterioDisplay> PontosDeCriterio = new List<CriterioDisplay>();
         private Image ModeloDeFundo;
+        public Card carta { get => card; }
 
         void Start()
         {
@@ -61,7 +62,7 @@ namespace Trunfo
             artwork.gameObject.SetActive(false);
             for (int i = 0; i < PontosDeCriterio.Count; i++)
             {
-                Destroy(PontosDeCriterio[i]);
+                Destroy(PontosDeCriterio[i].gameObject);
             }
             PontosDeCriterio.Clear();
         }
