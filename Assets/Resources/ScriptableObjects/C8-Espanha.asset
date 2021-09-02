@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 09491715f4acf694b86822e9a6e2de2f, type: 3}
-  m_Name: F3-ReinoUnido
+  m_Name: C8-Espanha
   m_EditorClassIdentifier: 
   tipo: {fileID: 11400000, guid: 3b7656e1ad02d9d4384fe51960e18f14, type: 2}
-  identificacao: F3
-  nome: REINO UNIDO
+  identificacao: C8
+  nome: ESPANHA
   pontos:
-  - 66.8
-  - 243.6
-  - 2830.8
-  - 274.7
-  - 81
-  artwork: {fileID: 21300000, guid: 57055adac353b5316b9d29cbfef4da89, type: 3}
+  - 47.1
+  - 505.9
+  - 1393.4
+  - 93.7
+  - 82.5
+  artwork: {fileID: 21300000, guid: 5356c1f630b5d943b93ca1f62ebe02fb, type: 3}

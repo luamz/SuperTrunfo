@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 09491715f4acf694b86822e9a6e2de2f, type: 3}
-  m_Name: D4-Uruguai
+  m_Name: B6-Mexico
   m_EditorClassIdentifier: 
   tipo: {fileID: 11400000, guid: 3b7656e1ad02d9d4384fe51960e18f14, type: 2}
-  identificacao: D4
-  nome: URUGUAI
+  identificacao: B6
+  nome: MEXICO
   pontos:
-  - 3.5
-  - 176.2
-  - 61.2
-  - 19.7
-  - 77.3
-  artwork: {fileID: 21300000, guid: 557c98fa12a0479338756d94f6e075e0, type: 3}
+  - 127.6
+  - 1964.3
+  - 1268.8
+  - 64.9
+  - 77.2
+  artwork: {fileID: 21300000, guid: 47ef1e3be7a920ce884f5b339de6a0d6, type: 3}

@@ -17,8 +17,9 @@ namespace Trunfo
         [SerializeField] private TextMeshProUGUI nome;
         [SerializeField] private Image artwork;
         [SerializeField] private GameObject modeloDeCriterio;
-        private readonly List<GameObject> PontosDeCriterio = new List<GameObject>();
+        public readonly List<CriterioDisplay> PontosDeCriterio = new List<CriterioDisplay>();
         private Image ModeloDeFundo;
+        public Card carta { get => card; }
 
         void Start()
         {
@@ -48,8 +49,9 @@ namespace Trunfo
             {
                 var novoCriterio = Instantiate(modeloDeCriterio, GetComponentInChildren<VerticalLayoutGroup>()
                 .GetComponent<RectTransform>());
-                novoCriterio.GetComponent<CriterioDisplay>().Inicializa(card, i);
-                PontosDeCriterio.Add(novoCriterio);
+                var criterio = novoCriterio.GetComponent<CriterioDisplay>();
+                criterio.Inicializa(card, i);
+                PontosDeCriterio.Add(criterio);
             }
         }
         private void SetaVerso()
@@ -60,7 +62,7 @@ namespace Trunfo
             artwork.gameObject.SetActive(false);
             for (int i = 0; i < PontosDeCriterio.Count; i++)
             {
-                Destroy(PontosDeCriterio[i]);
+                Destroy(PontosDeCriterio[i].gameObject);
             }
             PontosDeCriterio.Clear();
         }
