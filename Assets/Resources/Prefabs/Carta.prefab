@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.4628, y: 3.1529}
+  m_AnchoredPosition: {x: 0.46280003, y: 3.1529}
   m_SizeDelta: {x: 141.3359, y: 26.561}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7083717177980282786
@@ -168,7 +168,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000000061467, y: 1.79}
+  m_AnchoredPosition: {x: 0, y: 1.79}
   m_SizeDelta: {x: 3.6983, y: 2.3114}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7083717178020492360
@@ -237,7 +237,7 @@ RectTransform:
   m_GameObject: {fileID: 7083717178691457628}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 9, y: 10.2, z: 1}
   m_Children:
   - {fileID: 7083717177980282784}
   - {fileID: 7083717179211298538}
@@ -271,7 +271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb0b2bc0316f2974ca349de853c8e2b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: 1836f153a766c4a438547cab7923a588, type: 2}
+  card: {fileID: 11400000, guid: 0427bd7410612494b84b5666f753bcd5, type: 2}
   identificacao: {fileID: 7083717179211298541}
   nome: {fileID: 7083717177980282787}
   artwork: {fileID: 7083717178020492361}
@@ -477,7 +477,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.022900105, y: -0.6683}
+  m_AnchoredPosition: {x: 0.022899628, y: -0.6682968}
   m_SizeDelta: {x: -6.0978, y: -7.2574}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7083717179613030060
