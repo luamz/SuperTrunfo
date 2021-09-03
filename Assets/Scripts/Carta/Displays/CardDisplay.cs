@@ -21,7 +21,7 @@ namespace Trunfo
         private Image ModeloDeFundo;
         public Card carta { get => card; }
 
-        void Start()
+        void Awake()
         {
             Inicializa();
             SetaFrente();
@@ -29,15 +29,15 @@ namespace Trunfo
         
         void Update()
         {
-            SetaVerso();
-            SetaFrente();
+            //SetaVerso();
+            //SetaFrente();
         }
 
         private void Inicializa()
         {
             ModeloDeFundo = GetComponent<Image>();
         }
-        private void SetaFrente()
+        public void SetaFrente()
         {
             ModeloDeFundo.sprite = GerenciadorDeSpriteDeCarta.Frente;
             nome.text = card.Nome;
@@ -54,7 +54,7 @@ namespace Trunfo
                 PontosDeCriterio.Add(criterio);
             }
         }
-        private void SetaVerso()
+        public void SetaVerso()
         {
             ModeloDeFundo.sprite = GerenciadorDeSpriteDeCarta.Verso;
             nome.text = "";
