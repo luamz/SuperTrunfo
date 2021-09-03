@@ -20,6 +20,7 @@ namespace Trunfo
         public readonly List<CriterioDisplay> PontosDeCriterio = new List<CriterioDisplay>();
         private Image ModeloDeFundo;
         public Card carta { get => card; }
+        public bool jogador = true; // Carta do Jogador ou do Adversário?
 
         void Awake()
         {

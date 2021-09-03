@@ -15,15 +15,20 @@ namespace Trunfo
         public float vel_giro=1.7f;
         CardDisplay card_display;
         bool frente = false;
+        int incremento;
+
         // Start is called before the first frame update
         void Start()
         {
+            card_display = GetComponent<CardDisplay>();
+            incremento = card_display.jogador ? -78 : +78;
+            card_display.SetaVerso();
+
             carta = GetComponent<RectTransform>();
             mover =  carta.localPosition;
             pos_inicial = carta.localPosition;
-            pos_final = new Vector3(carta.localPosition.x-78,carta.localPosition.y,carta.localPosition.z);
-            card_display = GetComponent<CardDisplay>();
-            card_display.SetaVerso();
+            pos_final = new Vector3(carta.localPosition.x+incremento,carta.localPosition.y,carta.localPosition.z);
+            
         }
 
         // Update is called once per frame
