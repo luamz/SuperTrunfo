@@ -21,6 +21,8 @@ namespace Trunfo
         
 
         public void Aaaaaa(){
+            Debug.Log(nome.text);
+            Debug.Log(valor.text);
             Debug.Log(numCriterio);
         }
     }

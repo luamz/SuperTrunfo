@@ -39,7 +39,6 @@ namespace Trunfo
 
         public void vai_carta(){
             mover.x -= vel * Time.deltaTime;
-            Debug.Log(carta.localRotation.w);
             carta.localPosition = Vector3.Lerp(pos_inicial,pos_final,cont);
             if(cont<1){
                 cont += vel;

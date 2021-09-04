@@ -182,12 +182,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 169964968}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cc875085b2a4084da2d8e99978059f5, type: 3}
+  m_Script: {fileID: 11500000, guid: 70bfb747465f6fe5b9430eef4aa566b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numeroJogador: 1
+  numeroJogador: 0
   seuTurno: 1
-  mao: {fileID: 1017177793}
+  criador: 0
+  deque: {fileID: 1017177793}
 --- !u!1 &177121425
 GameObject:
   m_ObjectHideFlags: 0
@@ -559,9 +560,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54abbca3b6fd53c08afa732e11d567da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player1: {fileID: 169964971}
-  Player2: {fileID: 1885202656}
-  ListaDeCartas:
+  Jogador1: {fileID: 169964971}
+  Jogador2: {fileID: 1885202656}
+  Baralho:
   - {fileID: 1154711412}
   - {fileID: 1297345531}
 --- !u!224 &240296727 stripped
@@ -1167,7 +1168,6 @@ MonoBehaviour:
   QtdeCartasJogador: {fileID: 1926925284}
   QtdeCartasAdversario: {fileID: 832644176}
   Mensagem: {fileID: 830314461}
-  cont: 0
 --- !u!114 &510176213 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7083717178020492361, guid: 97723e7733be65d4ebd1b9e06094bfc1,
@@ -4005,12 +4005,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1885202653}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cc875085b2a4084da2d8e99978059f5, type: 3}
+  m_Script: {fileID: 11500000, guid: 70bfb747465f6fe5b9430eef4aa566b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numeroJogador: 2
+  numeroJogador: 0
   seuTurno: 0
-  mao: {fileID: 546409090}
+  criador: 0
+  deque: {fileID: 546409090}
 --- !u!1 &1926925282
 GameObject:
   m_ObjectHideFlags: 0
