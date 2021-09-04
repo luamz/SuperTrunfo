@@ -18,5 +18,10 @@ namespace Trunfo
             valor.text = card.Pontos[index].ToString();
             numCriterio = index;
         }
+        
+
+        public void Aaaaaa(){
+            Debug.Log(numCriterio);
+        }
     }
 }

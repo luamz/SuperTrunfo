@@ -6,16 +6,16 @@ namespace Trunfo
 {
     public class Player : MonoBehaviour
     {
-        //Número do jogador
+        //Nï¿½mero do jogador
         public int numeroJogador;
 
-        //Variável para a vez do jogador
+        //Variï¿½vel para a vez do jogador
         public bool seuTurno;
 
         //mao(cartas) do jogador
         [SerializeField] private Baralho mao;
         public Baralho Mao { get => mao;}
-
+        
 
         // Start is called before the first frame update
         void Start()
