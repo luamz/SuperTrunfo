@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,7 +13,8 @@ namespace Trunfo
         [SerializeField] private int quantTotalDeCartas;
         [Range(0f, 1f)]
         [SerializeField] private float porcAtual = 0f;
-        public Queue<CardDisplay> cartas = new Queue<CardDisplay>();
+        private Queue<CardDisplay> cartas = new Queue<CardDisplay>();
+        public CardDisplay[] Cartas { get => cartas.ToArray(); }
 
 
         private void OnValidate()
@@ -34,7 +34,7 @@ namespace Trunfo
         {
             if (cartas.Count + delta == 0) GetComponent<Image>().enabled = false;
             var completude = (cartas.Count + delta - 1) / quantTotalDeCartas;
-            baralho.localPosition = Vector3.Lerp(posicaoQuandoTemUmSobrando,posicaoQuandoInteiro,
+            baralho.localPosition = Vector3.Lerp(posicaoQuandoTemUmSobrando, posicaoQuandoInteiro,
                                                  completude);
         }
 
@@ -51,7 +51,7 @@ namespace Trunfo
             MoveMascara(0);
         }
 
-        
+
 
     }
 }

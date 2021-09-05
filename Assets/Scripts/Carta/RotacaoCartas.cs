@@ -7,16 +7,25 @@ namespace Trunfo
     public class RotacaoCartas : MonoBehaviour
     {
         RectTransform carta;
+        [SerializeField] private RectTransform transformFinal;
         public float vel = 0.1f;
-        Vector3 mover;
-        Vector3 pos_inicial;
-        Vector3 pos_final;
-        float cont =0;
-        public float vel_giro=1.7f;
+        private transformInfo posicaoInicial;
+        private transformInfo posicaoFinal;
+        float count = 0;
         CardDisplay card_display;
         bool frente = false;
         int incremento;
 
+        private struct transformInfo
+        {
+            public readonly Vector3 position;
+            public readonly Quaternion rotation;
+            public transformInfo(RectTransform transform)
+            {
+                this.position = transform.position;
+                this.rotation = transform.rotation;
+            }
+        }
         // Start is called before the first frame update
         void Start()
         {
@@ -25,10 +34,13 @@ namespace Trunfo
             card_display.SetaVerso();
 
             carta = GetComponent<RectTransform>();
-            mover =  carta.localPosition;
-            pos_inicial = carta.localPosition;
-            pos_final = new Vector3(carta.localPosition.x+incremento,carta.localPosition.y,carta.localPosition.z);
-            
+
+            posicaoInicial = new transformInfo(carta);
+            posicaoFinal = new transformInfo(transformFinal.GetComponent<RectTransform>());
+            // pos_inicial = carta.position;
+            // pos_final = new Vector3(carta.localPosition.x + incremento, carta.localPosition.y, carta.localPosition.z);
+            // pos_final = transformFinal.position;
+
         }
 
         // Update is called once per frame
@@ -37,17 +49,16 @@ namespace Trunfo
             vai_carta();
         }
 
-        public void vai_carta(){
-            mover.x -= vel * Time.deltaTime;
-            carta.localPosition = Vector3.Lerp(pos_inicial,pos_final,cont);
-            if(cont<1){
-                cont += vel;
-                carta.Rotate(0,1.7f,0);
-            }else {
-                carta.rotation = new Quaternion(0,0,0,0);
+        public void vai_carta()
+        {
+            if (count < 1)
+            {
+                carta.position = Vector3.Lerp(posicaoInicial.position, posicaoFinal.position, count);
+                carta.rotation = Quaternion.Lerp(posicaoInicial.rotation, posicaoFinal.rotation, count);
+                count += vel;
             }
-
-            if(cont>0.9f && !frente){
+            if (count > 0.5f && !frente)
+            {
                 frente = true;
                 card_display.SetaFrente();
             }

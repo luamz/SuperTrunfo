@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;  
+using System.Linq;
 using UnityEngine;
 
 namespace Trunfo
@@ -18,7 +18,7 @@ namespace Trunfo
         void Start()
         {
             // Se o jogador criou a partida
-            
+
             // if (Jogador1.criador){
             //     // O app dele deve carregar o baralho
             //     Baralho = CarregarBaralho();
@@ -42,34 +42,38 @@ namespace Trunfo
         // Update is called once per frame
         void Update()
         {
-        
+
         }
 
 
-        public void CarregarBaralho(){
+        public void CarregarBaralho()
+        {
             // A ser implementada
         }
 
-        public void DividirBaralho(){
-            
+        public void DividirBaralho()
+        {
+
             // Embaralha o baralho
-            Baralho = Baralho.OrderBy(seed=>Random.Range(0,32)).ToList();
-    
+            Baralho = Baralho.OrderBy(seed => Random.Range(0, 32)).ToList();
+
             // Atribui a metade do baralho para o Jogador1
-            Jogador1.Deque.InsereCartas(Baralho.Take(Baralho.Count()/2).ToArray());
+            Jogador1.Deque.InsereCartas(Baralho.Take(Baralho.Count() / 2).ToArray());
 
             // Atribui a outra metade do baralho para o Jogador1
-            Jogador2.Deque.InsereCartas(Baralho.Skip(Baralho.Count()/2).ToArray());
+            Jogador2.Deque.InsereCartas(Baralho.Skip(Baralho.Count() / 2).ToArray());
         }
 
-        public void EnviaDeque(){
+        public void EnviaDeque()
+        {
             // A ser implementada
             // Se o jogador foi o criador da partida as cartas são embaralhadas no app dele
             // E ele deve enviar o nº das cartas do deque do jogador2 para ele via firebase
 
         }
 
-        public void RecebeDeque(){
+        public void RecebeDeque()
+        {
             // A ser implementada
             // Se o jogador NÃO foi o criador da partida as cartas  NÃO são embaralhadas no app dele
             // E ele deve receber o nº das cartas de seu deque recebidas por ele via firebase
@@ -78,12 +82,12 @@ namespace Trunfo
         bool compCriterio(Card carta1, Card carta2, int index)
         {
             return carta1.Pontos[index] > carta2.Pontos[index];
-            
         }
 
-        public void ImprimeBaralhoDividido(){
-             Debug.Log(Jogador1.Deque.cartas.Count);
-             Debug.Log(Jogador2.Deque.cartas.Count);
+        public void ImprimeBaralhoDividido()
+        {
+            Debug.Log(Jogador1.Deque.Cartas.Length);
+            Debug.Log(Jogador2.Deque.Cartas.Length);
         }
 
     }
