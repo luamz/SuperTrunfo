@@ -225,4 +225,4 @@ MonoBehaviour:
   numeroJogador: 1
   seuTurno: 1
   criador: 0
-  deque: {fileID: 5369474004931157812}
+  baralho: {fileID: 5369474004931157812}

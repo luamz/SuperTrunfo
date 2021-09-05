@@ -6,40 +6,35 @@ namespace Trunfo
 {
     public class RotacaoCartas : MonoBehaviour
     {
-        RectTransform carta;
+        private RectTransform carta;
         [SerializeField] private RectTransform transformFinal;
         public float vel = 0.1f;
         private transformInfo posicaoInicial;
         private transformInfo posicaoFinal;
-        float count = 0;
-        CardDisplay card_display;
-        bool frente = false;
-        int incremento;
+        private float count = 0;
+        private CardDisplay card_display;
+        private bool frente = false;
 
-        private struct transformInfo
+        private readonly struct transformInfo
         {
             public readonly Vector3 position;
             public readonly Quaternion rotation;
             public transformInfo(RectTransform transform)
             {
-                this.position = transform.position;
-                this.rotation = transform.rotation;
+                position = transform.position;
+                rotation = transform.rotation;
             }
         }
         // Start is called before the first frame update
         void Start()
         {
             card_display = GetComponent<CardDisplay>();
-            incremento = card_display.jogador ? -78 : +78;
             card_display.SetaVerso();
 
             carta = GetComponent<RectTransform>();
 
             posicaoInicial = new transformInfo(carta);
             posicaoFinal = new transformInfo(transformFinal.GetComponent<RectTransform>());
-            // pos_inicial = carta.position;
-            // pos_final = new Vector3(carta.localPosition.x + incremento, carta.localPosition.y, carta.localPosition.z);
-            // pos_final = transformFinal.position;
 
         }
 
@@ -48,14 +43,22 @@ namespace Trunfo
         {
             vai_carta();
         }
+        public void Reseta()
+        {
+            count = 0;
+            carta.position = posicaoInicial.position;
+            carta.rotation = posicaoInicial.rotation;
+            card_display.SetaVerso();
+            frente = false;
+        }
 
-        public void vai_carta()
+        private void vai_carta()
         {
             if (count < 1)
             {
                 carta.position = Vector3.Lerp(posicaoInicial.position, posicaoFinal.position, count);
                 carta.rotation = Quaternion.Lerp(posicaoInicial.rotation, posicaoFinal.rotation, count);
-                count += vel;
+                count += vel * Time.deltaTime;
             }
             if (count > 0.5f && !frente)
             {

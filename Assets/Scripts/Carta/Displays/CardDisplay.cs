@@ -19,7 +19,7 @@ namespace Trunfo
         [SerializeField] private GameObject modeloDeCriterio;
         public readonly List<CriterioDisplay> PontosDeCriterio = new List<CriterioDisplay>();
         private Image ModeloDeFundo;
-        public Card carta { get => card; }
+        public Card carta { get => card; set => this.card = value; }
         public bool jogador = true; // Carta do Jogador ou do Adversário?
 
         void Awake()
@@ -27,7 +27,7 @@ namespace Trunfo
             Inicializa();
             SetaFrente();
         }
-        
+
         void Update()
         {
             //SetaVerso();

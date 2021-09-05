@@ -6,6 +6,7 @@ namespace Trunfo
 {
     public class Jogador : MonoBehaviour
     {
+        [SerializeField] private CardDisplay CartaNaMao;
         //Numero do jogador
         public int numeroJogador;
 
@@ -17,20 +18,29 @@ namespace Trunfo
 
 
         // Deque do jogador que armazena as cartas deste
-        [SerializeField] private Baralho deque;
-        public Baralho Deque { get => deque;}
-        
+        [SerializeField] private Baralho baralho;
+        public Baralho Baralho { get => baralho; }
+
 
         // Start is called before the first frame update
         void Start()
         {
 
         }
-        
+
         // Update is called once per frame
         void Update()
         {
-        
+
+        }
+        private bool primeiraVez = true;
+        public void CompraCarta()
+        {
+            var carta = baralho.CompraCarta();
+            CartaNaMao.carta = carta;
+            CartaNaMao.gameObject.SetActive(true);
+            if (primeiraVez) primeiraVez = false;
+            else CartaNaMao.GetComponent<RotacaoCartas>().Reseta();
         }
     }
 }
