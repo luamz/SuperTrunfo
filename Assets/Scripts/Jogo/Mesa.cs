@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using System.Linq;  
 using UnityEngine;
 
 namespace Trunfo
@@ -76,11 +76,42 @@ namespace Trunfo
         {
             // A ser implementada
             // Se o jogador NÃO foi o criador da partida as cartas  NÃO são embaralhadas no app dele
-            // E ele deve receber o nº das cartas de seu Deck recebidas por ele via firebase
+            // E ele deve receber o nº das cartas de seu deque recebidas por ele via firebase
+        }
+        
+        public void ChecaTrunfo(){
+            // A ser implementada
+
+            /// Casos
+            
+            // 1 - Jogador da rodada NÃO tem o trunfo, ocorre a comparação criterio
+            // Carta 1 - China (Carta do jogador da rodada)
+            // Carta 2 - Brasil Trunfo
+            // -> Solicita que o Jogador escolha um criterio 
+            // Chama comparação de criterio
+
+            // 2 - Jogador da rodada TEM o trunfo, ocorre a comparação de grupo
+            // Carta 1 - Brasil Trunfo(Carta do jogador da rodada)
+            // Carta 2 - China 
+            // Chama comparação de grupo
         }
 
-        bool compCriterio(Card carta1, Card carta2, int index)
+        bool ComparaGrupo(Card carta1, Card carta2)
         {
+            // if (carta2.Identificacao[0] == "A"){
+            //     // carta1 perde
+            //     return false;
+            // }'
+            // else{
+            //     // carta1 ganha
+            //     return true;
+            // }   
+            return true;
+        }
+
+        bool ComparaCriterio(Card carta1, Card carta2, int index)
+        {
+            // Vence a que tiver maior critério
             return carta1.Pontos[index] > carta2.Pontos[index];
         }
 
