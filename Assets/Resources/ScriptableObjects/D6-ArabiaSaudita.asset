@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: D6-ArabiaSaudita
   m_EditorClassIdentifier: 
   tipo: {fileID: 11400000, guid: 3b7656e1ad02d9d4384fe51960e18f14, type: 2}
-  identificacao: D6
-  nome: ARABIA SAUDITA
+  identificacao:
+    numero: 6
+    grupo: 68
+  nome: "AR\xC1BIA SAUDITA"
   pontos:
   - 34.2
   - 2149.6

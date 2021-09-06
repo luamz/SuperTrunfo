@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: D3-Marrocos
   m_EditorClassIdentifier: 
   tipo: {fileID: 11400000, guid: 3b7656e1ad02d9d4384fe51960e18f14, type: 2}
-  identificacao: D3
+  identificacao:
+    numero: 3
+    grupo: 68
   nome: MARROCOS
   pontos:
   - 36.5

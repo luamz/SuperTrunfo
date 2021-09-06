@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: C4-Uruguai
   m_EditorClassIdentifier: 
   tipo: {fileID: 11400000, guid: 3b7656e1ad02d9d4384fe51960e18f14, type: 2}
-  identificacao: C4
+  identificacao:
+    numero: 4
+    grupo: 67
   nome: URUGUAI
   pontos:
   - 3.5

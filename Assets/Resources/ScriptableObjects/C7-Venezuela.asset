@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: C7-Venezuela
   m_EditorClassIdentifier: 
   tipo: {fileID: 11400000, guid: 3b7656e1ad02d9d4384fe51960e18f14, type: 2}
-  identificacao: C7
+  identificacao:
+    numero: 7
+    grupo: 67
   nome: VENEZUELA
   pontos:
   - 28.5
