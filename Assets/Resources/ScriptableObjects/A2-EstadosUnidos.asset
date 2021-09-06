@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: A2-EstadosUnidos
   m_EditorClassIdentifier: 
   tipo: {fileID: 11400000, guid: 3b7656e1ad02d9d4384fe51960e18f14, type: 2}
-  identificacao: A2
+  identificacao:
+    numero: 2
+    grupo: 65
   nome: ESTADOS UNIDOS
   pontos:
   - 328.3

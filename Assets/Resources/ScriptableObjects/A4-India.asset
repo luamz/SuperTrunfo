@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: A4-India
   m_EditorClassIdentifier: 
   tipo: {fileID: 11400000, guid: 3b7656e1ad02d9d4384fe51960e18f14, type: 2}
-  identificacao: A4
-  nome: INDIA
+  identificacao:
+    numero: 4
+    grupo: 65
+  nome: "\xCDNDIA"
   pontos:
   - 1336.4
   - 3287.2

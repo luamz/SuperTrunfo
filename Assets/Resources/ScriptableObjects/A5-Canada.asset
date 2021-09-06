@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: A5-Canada
   m_EditorClassIdentifier: 
   tipo: {fileID: 11400000, guid: 3b7656e1ad02d9d4384fe51960e18f14, type: 2}
-  identificacao: A5
+  identificacao:
+    numero: 5
+    grupo: 65
   nome: CANADA
   pontos:
   - 37.6

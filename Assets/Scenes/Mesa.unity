@@ -560,6 +560,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fa1a9c66c4f4fc878ae1fc5b8ff3c93a, type: 2}
   - {fileID: 11400000, guid: 918f0f4c8b5d1ef6b84bc3c885ba41d8, type: 2}
   - {fileID: 11400000, guid: 87a69d632e40c133a97eb8af29bd7319, type: 2}
+  - {fileID: 11400000, guid: a7ca874d14f906141b93aeb25a45ba01, type: 2}
+  - {fileID: 11400000, guid: 1122d5df5ca4568c29e98d156d8f9410, type: 2}
 --- !u!1 &377544189
 GameObject:
   m_ObjectHideFlags: 0
@@ -3863,11 +3865,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1203360462}
     m_Modifications:
-    - target: {fileID: 409949037268011411, guid: 23824e3d0c6d1cf44bc128e301fcff0e,
-        type: 3}
-      propertyPath: quantTotalDeCartas
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 3708704284726909725, guid: 23824e3d0c6d1cf44bc128e301fcff0e,
         type: 3}
       propertyPath: m_Name
@@ -3977,6 +3974,32 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5852882758780409936, guid: 23824e3d0c6d1cf44bc128e301fcff0e,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee,
+        type: 2}
+    - target: {fileID: 5852882758780409936, guid: 23824e3d0c6d1cf44bc128e301fcff0e,
+        type: 3}
+      propertyPath: m_fontSizeMax
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 5852882758780409936, guid: 23824e3d0c6d1cf44bc128e301fcff0e,
+        type: 3}
+      propertyPath: m_fontSizeMin
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5852882758780409936, guid: 23824e3d0c6d1cf44bc128e301fcff0e,
+        type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5852882758780409936, guid: 23824e3d0c6d1cf44bc128e301fcff0e,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23824e3d0c6d1cf44bc128e301fcff0e, type: 3}

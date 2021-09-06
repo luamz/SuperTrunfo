@@ -44,7 +44,7 @@ namespace Trunfo
         {
             ModeloDeFundo.sprite = Frente;
             nome.text = card.Nome;
-            identificacao.text = card.Identificacao;
+            identificacao.text = card.Identificacao.ToString();
             artwork.gameObject.SetActive(true);
             artwork.sprite = card.Artwork;
             PontosDeCriterio.Clear();

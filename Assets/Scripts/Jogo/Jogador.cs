@@ -6,7 +6,7 @@ namespace Trunfo
 {
     public class Jogador : MonoBehaviour
     {
-        [SerializeField] private CardDisplay CartaNaMao;
+        [SerializeField] public CardDisplay CartaNaMao;
         //Numero do jogador
         public int numeroJogador;
 
