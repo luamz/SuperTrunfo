@@ -13,12 +13,14 @@ MonoBehaviour:
   m_Name: D1-Australia
   m_EditorClassIdentifier: 
   tipo: {fileID: 11400000, guid: 3b7656e1ad02d9d4384fe51960e18f14, type: 2}
-  identificacao: D1
-  nome: AUSTRALIA
+  identificacao:
+    numero: 1
+    grupo: 68
+  nome: "AUSTR\xC1LIA"
   pontos:
   - 25.4
   - 7741.2
   - 1396.5
   - 3.2
-  - 83
+  - 83.1
   artwork: {fileID: 21300000, guid: 0d20d81c5c1c7014286a0af2b2ad92c7, type: 3}

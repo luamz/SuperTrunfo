@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: B5-AfricaDoSul
   m_EditorClassIdentifier: 
   tipo: {fileID: 11400000, guid: 3b7656e1ad02d9d4384fe51960e18f14, type: 2}
-  identificacao: B5
-  nome: AFRICA DO SUL
+  identificacao:
+    numero: 5
+    grupo: 66
+  nome: "\xC1FRICA DO SUL"
   pontos:
   - 58.6
   - 1219

@@ -11,8 +11,6 @@ namespace Trunfo
         [SerializeField] private Vector3 posicaoQuandoInteiro;
         [SerializeField] private Vector3 posicaoQuandoTemUmSobrando;
         [SerializeField] private int quantTotalDeCartas;
-        [Range(0f, 1f)]
-        [SerializeField] private float porcAtual = 0f;
         private Queue<Card> cartas = new Queue<Card>();
         public Card[] Cartas { get => cartas.ToArray(); }
 
@@ -34,6 +32,7 @@ namespace Trunfo
             MoveMascara(-1);
             return cartas.Dequeue();
         }
+        
         private void MoveMascara(int delta)
         {
             if (cartas.Count + delta == 0) GetComponent<Image>().enabled = false;
@@ -44,6 +43,7 @@ namespace Trunfo
 
         public void InsereCarta(Card carta)
         {
+            Debug.Log(carta.Identificacao);
             MoveMascara(1);
             cartas.Enqueue(carta);
         }
@@ -55,6 +55,7 @@ namespace Trunfo
             MoveMascara(0);
         }
 
+        
 
 
     }

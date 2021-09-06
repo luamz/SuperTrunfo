@@ -29,21 +29,7 @@ namespace Trunfo
             enviarProBanco<StructCarta>(teste, "salas", "Sala teste");
         }
 
-        public void enviaBaralho(){
-            StructBaralho baralho = new StructBaralho{
-                Cartas = new string[] {"A1","B1","A2","B2","A3","B3","A4","B4","A5","B5","A6","B6","A7","B7","A7","B7"}
-            };
-            
-            enviarProBanco<StructBaralho>(baralho, "salas", "Sala teste");
-        }
-
-        public void recebeBaralho(){
-            pegarDoBanco<StructBaralho>("salas", "Sala teste", task=>{
-                List<string> list = new List<string>(task.Cartas);
-                list.ForEach(i => Debug.Log(i.ToString()));
-                }
-            );
-        }
+       
 
         // public void pegaString(){
             

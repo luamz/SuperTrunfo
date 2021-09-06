@@ -16,7 +16,7 @@ MonoBehaviour:
   identificacao:
     numero: 5
     grupo: 65
-  nome: CANADA
+  nome: "CANAD\xC1"
   pontos:
   - 37.6
   - 9879.7

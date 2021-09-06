@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: B7-Italia
   m_EditorClassIdentifier: 
   tipo: {fileID: 11400000, guid: 3b7656e1ad02d9d4384fe51960e18f14, type: 2}
-  identificacao: B7
-  nome: ITALIA
+  identificacao:
+    numero: 7
+    grupo: 66
+  nome: "IT\xC1LIA"
   pontos:
   - 59.7
   - 302

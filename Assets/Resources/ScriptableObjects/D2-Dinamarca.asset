@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: D2-Dinamarca
   m_EditorClassIdentifier: 
   tipo: {fileID: 11400000, guid: 3b7656e1ad02d9d4384fe51960e18f14, type: 2}
-  identificacao: D2
+  identificacao:
+    numero: 2
+    grupo: 68
   nome: DINAMARCA
   pontos:
   - 5.8

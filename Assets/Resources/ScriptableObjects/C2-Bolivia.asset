@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: C2-Bolivia
   m_EditorClassIdentifier: 
   tipo: {fileID: 11400000, guid: 3b7656e1ad02d9d4384fe51960e18f14, type: 2}
-  identificacao: C2
-  nome: BOLIVIA
+  identificacao:
+    numero: 2
+    grupo: 67
+  nome: "BOL\xCDVIA"
   pontos:
   - 11.5
   - 1098.5

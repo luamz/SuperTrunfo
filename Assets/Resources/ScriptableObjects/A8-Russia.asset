@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: A8-Russia
   m_EditorClassIdentifier: 
   tipo: {fileID: 11400000, guid: 3b7656e1ad02d9d4384fe51960e18f14, type: 2}
-  identificacao: A8
-  nome: RUSSIA
+  identificacao:
+    numero: 8
+    grupo: 65
+  nome: "R\xDASSIA"
   pontos:
   - 144.4
   - 17098.2

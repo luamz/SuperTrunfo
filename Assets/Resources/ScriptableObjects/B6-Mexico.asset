@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: B6-Mexico
   m_EditorClassIdentifier: 
   tipo: {fileID: 11400000, guid: 3b7656e1ad02d9d4384fe51960e18f14, type: 2}
-  identificacao: B6
-  nome: MEXICO
+  identificacao:
+    numero: 6
+    grupo: 66
+  nome: "M\xC9XICO"
   pontos:
   - 127.6
   - 1964.3
