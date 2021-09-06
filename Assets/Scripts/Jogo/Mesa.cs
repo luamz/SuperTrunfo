@@ -20,7 +20,6 @@ namespace Trunfo
         // Gerenciador Firestore
         public GerenciadorFirestore Gerenciador;
 
-
         // Start is called before the first frame update
         void Start()
         {
@@ -35,11 +34,12 @@ namespace Trunfo
             // Se não, recebe baralho
             else
             {
-                RecebeDeck();
+                RecebeBaralho();
             }
 
-            // Registra função no clique do critério
-            CriterioDisplay.criterioEscolhido += TestaComparaCriterio;
+            // Envia carta na mão quando o critério é escolhido
+            // Comparação feita dentro da dita função
+            CriterioDisplay.criterioEscolhido += EnviaCartaNaMaoResultado;
         }
 
         public void DividirBaralho()
@@ -55,45 +55,64 @@ namespace Trunfo
             jogador2.Baralho.InsereCartas(Baralho.Skip(Baralho.Count() / 2).ToArray());
         }
 
-
         public void EnviaBaralho()
         {
             // Transformando cartas para String
-            List<string> CartasIds = new List<string>();
+            List<string> CartasIdsCriador = new List<string>();
+            List<string> CartasIdsAdversario = new List<string>();
+            
+            foreach (var carta in jogador1.Baralho.Cartas)
+            {
+                CartasIdsCriador.Add(carta.Identificacao.ToString());
+            }
+
             foreach (var carta in jogador2.Baralho.Cartas)
             {
-                CartasIds.Add(carta.Identificacao.ToString());
+                CartasIdsAdversario.Add(carta.Identificacao.ToString());
             }
 
             // Converte para formato StructBaralho do Firebase
             StructBaralho baralho = new StructBaralho
             {
-                Baralho = CartasIds.ToArray()
+                BaralhoCriador = CartasIdsCriador.ToArray(),
+                BaralhoAdversario = CartasIdsAdversario.ToArray()
             };
 
             // Envia baralho para o firebase            
             Gerenciador.enviarProBanco<StructBaralho>(baralho, "salas", "Sala teste2");
         }
 
-        public void RecebeDeck()
+        public void RecebeBaralho()
         {
             // Recebe baralho via firebase
             Gerenciador.pegarDoBanco<StructBaralho>("salas", "Sala teste2",
                 task =>
                 {
-                    List<string> list = new List<string>(task.Baralho);
-                    list.ForEach(i =>
+                    // Lista do Jogador 1( Não criou a partida)
+                    List<string> listJogador1 = new List<string>(task.BaralhoAdversario);
+
+                    // Lista do Jogador 2 ( Criador da Partida )
+                    List<string> listJogador2 = new List<string>(task.BaralhoCriador);
+                    
+                    // Jogador1
+                    listJogador1.ForEach(i =>
                     {
                         // Converte string para carta
                         Card CartaAtual = ConverteParaCarta(i);
                         // Insere no baralho do jogador1
                         jogador1.Baralho.InsereCarta(CartaAtual);
-                        // Remove do baralho da mesa
-                        Baralho.Remove(CartaAtual);
                     }
                     );
-                    // Insere o restante no baralho do jogador2
-                    jogador2.Baralho.InsereCartas(Baralho.ToArray());
+
+                    // Jogador2 (Criador)
+                    listJogador2.ForEach(i =>
+                    {
+                        // Converte string para carta
+                        Card CartaAtual = ConverteParaCarta(i);
+                        // Insere no baralho do jogador1
+                        jogador2.Baralho.InsereCarta(CartaAtual);
+                    }
+                    );
                 }
             );
         }
@@ -114,7 +133,49 @@ namespace Trunfo
             return null;
         }
 
-        void TestaComparaCriterio(int index) => ComparaCriterio(jogador1.CartaNaMao, jogador2.CartaNaMao, index);
+
+        // Jogador do turno (ou seja, aquele que compara) envia ao outro
+        // o id da carta da mão dele e o resultado da comparação
+        public void EnviaCartaNaMaoResultado(int index){
+            bool Ganha = ComparaCriterio(Jogador1.CartaNaMao,Jogador2.CartaNaMao,index);
+            TrataGanhador(Ganha);
+            
+            StructCarta carta = new StructCarta
+            {
+                Id = Jogador1.CartaNaMao.carta.Identificacao.ToString(),
+                JogadorDoTurnoGanha = Ganha
+            };
+
+            // Envia baralho para o firebase            
+            Gerenciador.enviarProBanco<StructCarta>(carta, "salas", "Sala teste2");
+            
+        }
+
+        // Jogador que não é do turno (ou seja, aquele que não compara)
+        // recebe o id da carta da mão do adversario e o resultado da comparação
+        public void RecebeCartaNaMaoAdversario(){
+            Gerenciador.pegarDoBanco<StructCarta>("salas", "Sala teste2",
+                task =>
+                {
+                    Card cartaNaMaoAdversario = ConverteParaCarta(task.Id);
+                    TrataGanhador(task.JogadorDoTurnoGanha);
+                }
+            );
+        }
+
+        private void TrataGanhador(bool JogadorDoTurnoGanha){
+            // Jogador do Turno ganha, logo eu perdi
+            if (JogadorDoTurnoGanha)
+                InsereCartasNoGanhador(Jogador2,Jogador1);
+            // Jogador do turno perde
+            else
+                InsereCartasNoGanhador(Jogador1,Jogador2);
+        }
+
+        private void InsereCartasNoGanhador(Jogador Ganhador, Jogador Perdedor){
+            Ganhador.Baralho.InsereCarta(Ganhador.CartaNaMao.carta);
+            Ganhador.Baralho.InsereCarta(Perdedor.CartaNaMao.carta);
+        }
 
         bool ComparaCriterio(CardDisplay carta1, CardDisplay carta2, int index)
         {
