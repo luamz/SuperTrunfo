@@ -67,6 +67,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Carta Minha
       objectReference: {fileID: 0}
+    - target: {fileID: 7083717178691457630, guid: 97723e7733be65d4ebd1b9e06094bfc1,
+        type: 3}
+      propertyPath: Verso
+      value: 
+      objectReference: {fileID: 21300000, guid: 078d6db1d5f8aab49b6adabad2ade421,
+        type: 3}
+    - target: {fileID: 7083717178691457630, guid: 97723e7733be65d4ebd1b9e06094bfc1,
+        type: 3}
+      propertyPath: Frente
+      value: 
+      objectReference: {fileID: 21300000, guid: 1634fef9f878483458aaedff7a76041c,
+        type: 3}
     - target: {fileID: 7083717178691457631, guid: 97723e7733be65d4ebd1b9e06094bfc1,
         type: 3}
       propertyPath: m_Pivot.x
@@ -172,6 +184,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7815274396740633660, guid: 97723e7733be65d4ebd1b9e06094bfc1,
+        type: 3}
+      propertyPath: vel
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97723e7733be65d4ebd1b9e06094bfc1, type: 3}
 --- !u!224 &5852882758341832108 stripped
@@ -227,7 +244,7 @@ PrefabInstance:
     - target: {fileID: 5369474004931157812, guid: 0eb3a82df5939f743ae2a8e729903b8e,
         type: 3}
       propertyPath: quantTotalDeCartas
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8954190387134316664, guid: 0eb3a82df5939f743ae2a8e729903b8e,
         type: 3}

@@ -14,7 +14,7 @@ namespace Trunfo
         [SerializeField] private string[] atributos;
         // [SerializeField] private Sprite modeloDeCarta;
         public string[] Atributos { get => (string[])atributos.Clone(); }
-
+#if UNITY_EDITOR
         //>Adiciona o comando "Instancia Carta desse Tipo" no menu do Scriptable Object
         [ContextMenu("Instancia Carta Desse Tipo")]
         private void CriaCarta()
@@ -26,5 +26,6 @@ namespace Trunfo
             AssetDatabase.CreateAsset(carta, "Assets/Resources/ScriptableObjects/new Carta de " + nome + ".asset");
             Selection.activeObject = carta;
         }
+#endif
     }
 }
