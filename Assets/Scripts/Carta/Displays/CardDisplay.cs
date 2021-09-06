@@ -11,6 +11,8 @@ namespace Trunfo
     [RequireComponent(typeof(Image))]
     public class CardDisplay : MonoBehaviour
     {
+        [SerializeField] private Sprite Frente;
+        [SerializeField] private Sprite Verso;
         [SerializeField] private Card card;
         [Header("Modelo do Prefab")]
         [SerializeField] private TextMeshProUGUI identificacao;
@@ -19,7 +21,7 @@ namespace Trunfo
         [SerializeField] private GameObject modeloDeCriterio;
         public readonly List<CriterioDisplay> PontosDeCriterio = new List<CriterioDisplay>();
         private Image ModeloDeFundo;
-        public Card carta { get => card; }
+        public Card carta { get => card; set => this.card = value; }
         public bool jogador = true; // Carta do Jogador ou do Adversário?
 
         void Awake()
@@ -27,7 +29,7 @@ namespace Trunfo
             Inicializa();
             SetaFrente();
         }
-        
+
         void Update()
         {
             //SetaVerso();
@@ -40,9 +42,9 @@ namespace Trunfo
         }
         public void SetaFrente()
         {
-            ModeloDeFundo.sprite = GerenciadorDeSpriteDeCarta.Frente;
+            ModeloDeFundo.sprite = Frente;
             nome.text = card.Nome;
-            identificacao.text = card.Identificacao;
+            identificacao.text = card.Identificacao.ToString();
             artwork.gameObject.SetActive(true);
             artwork.sprite = card.Artwork;
             PontosDeCriterio.Clear();
@@ -57,7 +59,7 @@ namespace Trunfo
         }
         public void SetaVerso()
         {
-            ModeloDeFundo.sprite = GerenciadorDeSpriteDeCarta.Verso;
+            ModeloDeFundo.sprite = Verso;
             nome.text = "";
             identificacao.text = "";
             artwork.gameObject.SetActive(false);

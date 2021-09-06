@@ -8,17 +8,22 @@ namespace Trunfo
 {
     public class Interface : MonoBehaviour
     {
-        public static int QtdeJogador = 16;
+        // Placar do Jogador 
+        public static int QtdeJogador;
         public TextMeshProUGUI QtdeCartasJogador;
-        public static int QtdeAdversario = 16;
+
+        // Placar do Adversário
+        public static int QtdeAdversario;
         public TextMeshProUGUI QtdeCartasAdversario;
+
         public TextMeshProUGUI Mensagem;
-        public int cont;
 
         // Start is called before the first frame update
         void Start()
         {
-
+            // Cada jogador começa com metade do baralho que contém 32 cartas.
+            QtdeJogador = 16;
+            QtdeAdversario = 16;
         }
 
         // Update is called once per frame

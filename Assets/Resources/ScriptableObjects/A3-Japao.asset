@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: A3-Japao
   m_EditorClassIdentifier: 
   tipo: {fileID: 11400000, guid: 3b7656e1ad02d9d4384fe51960e18f14, type: 2}
-  identificacao: A3
-  nome: JAPAO
+  identificacao:
+    numero: 3
+    grupo: 65
+  nome: "JAP\xC3O"
   pontos:
   - 126.2
   - 378

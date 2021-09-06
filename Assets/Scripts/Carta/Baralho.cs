@@ -7,25 +7,29 @@ namespace Trunfo
 {
     public class Baralho : MonoBehaviour
     {
-        private RectTransform baralho;
+        private RectTransform rectTransform;
         [SerializeField] private Vector3 posicaoQuandoInteiro;
         [SerializeField] private Vector3 posicaoQuandoTemUmSobrando;
         [SerializeField] private int quantTotalDeCartas;
         [Range(0f, 1f)]
         [SerializeField] private float porcAtual = 0f;
-        private Queue<CardDisplay> cartas = new Queue<CardDisplay>();
+        private Queue<Card> cartas = new Queue<Card>();
+        public Card[] Cartas { get => cartas.ToArray(); }
 
 
-        private void OnValidate()
+        // private void OnValidate()
+        // {
+        //     rectTransform = GetComponent<RectTransform>();
+        //     //para testar o lerp
+        //     rectTransform.localPosition = Vector3.Lerp(posicaoQuandoTemUmSobrando, posicaoQuandoInteiro,
+        //                                          porcAtual);
+        // }
+        void Awake()
         {
-            baralho = GetComponent<RectTransform>();
-            //para testar o lerp
-            baralho.localPosition = Vector3.Lerp(posicaoQuandoTemUmSobrando,
-                                                        posicaoQuandoInteiro,
-                                                        porcAtual);
+            rectTransform = GetComponent<RectTransform>();
         }
 
-        public CardDisplay CompraCarta()
+        public Card CompraCarta()
         {
             MoveMascara(-1);
             return cartas.Dequeue();
@@ -33,21 +37,25 @@ namespace Trunfo
         private void MoveMascara(int delta)
         {
             if (cartas.Count + delta == 0) GetComponent<Image>().enabled = false;
-            var completude = (cartas.Count + delta - 1) / quantTotalDeCartas;
-            baralho.localPosition = Vector3.Lerp(posicaoQuandoTemUmSobrando,
-                                                        posicaoQuandoInteiro,
-                                                        completude);
+            float completude = (float)(cartas.Count + delta) / quantTotalDeCartas;
+            rectTransform.localPosition = Vector3.Lerp(posicaoQuandoTemUmSobrando, posicaoQuandoInteiro,
+                                                 completude);
         }
-        public void InsereCarta(CardDisplay carta)
+
+        public void InsereCarta(Card carta)
         {
             MoveMascara(1);
             cartas.Enqueue(carta);
         }
-        public void InsereCartas(CardDisplay[] cartas)
+
+        public void InsereCartas(Card[] cartas)
         {
-            foreach (CardDisplay carta in cartas)
+            foreach (Card carta in cartas)
                 this.cartas.Enqueue(carta);
             MoveMascara(0);
         }
+
+
+
     }
 }
