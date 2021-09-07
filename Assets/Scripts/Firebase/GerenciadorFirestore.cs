@@ -51,6 +51,37 @@ namespace Trunfo
             });
         }
 
+        public void testeColocaFundo(){
+            StructCarta teste = new StructCarta{
+                Id = "Baaaaaaaaa",
+                Baralho = new string[] {"Primeiro","Segundo","Terceiro"}
+            };
+            colocaCamadaProfunda<StructCarta>(teste, "testesubcolecao", "Sala um", "Colec1", "Doc1");
+        }
+        public void colocaCamadaProfunda<T>(T dados,string ExtCollection, string ExtDocument, string DenCollection, string DenDocument){
+            // db.Collection(ExtCollection).Document(ExtDocument).Collection(DenCollection).Document(DenDocument).CreateAsync(dados);
+            instanciaBanco();
+            DocumentReference topDoc = db.Collection(ExtCollection).Document(ExtDocument);
+            CollectionReference subCollection = topDoc.Collection(DenCollection);
+            DocumentReference subDoc = subCollection.Document(DenDocument);
+            subDoc.SetAsync(dados).ContinueWithOnMainThread(task => {
+                Debug.Log("Sub colecao criada");
+            });
+        }
+
+        public void testeCriaDocIdAleatorio(){
+            StructCarta teste = new StructCarta{
+                Id = "B5",
+                Baralho = new string[] {"Primeiro","Segundo","Terceiro"}
+            };
+            criaDocumentIdAleatorio<StructCarta>(teste, "Valores");
+        }
+        public void criaDocumentIdAleatorio<T>(T dados, string Collection){
+            instanciaBanco();
+            CollectionReference valorRef = db.Collection(Collection);
+            valorRef.AddAsync(dados);
+        }
+
         public void enviarProBanco<T>(T dados,string Collection, string Document) where T : struct{
             instanciaBanco();
             
