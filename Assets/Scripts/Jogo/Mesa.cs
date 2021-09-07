@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 namespace Trunfo
 {
@@ -20,6 +22,7 @@ namespace Trunfo
 
         // Mensagem
         public TextMeshProUGUI DisplayMensagem;
+        public Button BotaoPaginaInicial;
 
         // Gerenciador Firestore
         public GerenciadorFirestore Gerenciador;
@@ -180,9 +183,10 @@ namespace Trunfo
                 if (Jogador1.Baralho.Cartas.Length < 32)
                     Mensagem("Sua carta ganhou!\nPegue outra carta");
                 else
+                {
                     Mensagem("Você ganhou o jogo!");
-
-
+                    BotaoPaginaInicial.enabled = true;
+                }
             }
             else
             {
@@ -198,6 +202,7 @@ namespace Trunfo
                     Mensagem("Sua carta perdeu:(\nPegue outra carta");
                 else if (Jogador2.Baralho.Cartas.Length == 32)
                     Mensagem("Você perdeu o jogo :(");
+                BotaoPaginaInicial.enabled = true;
             }
         }
         private void InsereCartasNoGanhador(Jogador Ganhador, Jogador Perdedor)
@@ -224,5 +229,9 @@ namespace Trunfo
             return carta1.carta.Compara(carta2.carta, index);
         }
 
+        public void VoltaPaginaInicial()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        }
     }
 }
