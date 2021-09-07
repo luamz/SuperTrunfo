@@ -85,17 +85,37 @@ namespace Trunfo
             });
         }
 
+        public void testePegaProfundo(){
+            // Exemplo pegar um do tipo Carta em subcoleções
+            pegaProfundo<StructCarta>("testesubcolecao", "Sala um", "Colec1", "Doc1", task=>{Debug.Log(task.Baralho[0]);});
+        }
+
+        public void pegaProfundo<T>(string ExtCollection, string ExtDocument, string DenCollection, string DenDocument,Action<T> usarDados){
+            instanciaBanco();
+            DocumentReference topDoc = db.Collection(ExtCollection).Document(ExtDocument);
+            CollectionReference subCollection = topDoc.Collection(DenCollection);
+            DocumentReference subDoc = subCollection.Document(DenDocument);
+            subDoc.GetSnapshotAsync()
+            .ContinueWithOnMainThread(task=>{
+                T retorno = task.Result.ConvertTo<T>();
+                usarDados.Invoke(retorno);
+            });
+        }
+
         public void testeCriaDocIdAleatorio(){
             StructCarta teste = new StructCarta{
                 Id = "B5",
                 Baralho = new string[] {"Primeiro","Segundo","Terceiro"}
             };
-            criaDocumentIdAleatorio<StructCarta>(teste, "Valores");
+            criaDocumentIdAleatorio<StructCarta>(teste, "Valores", retorno=>{Debug.Log(retorno);});
         }
-        public void criaDocumentIdAleatorio<T>(T dados, string Collection){
+        public void criaDocumentIdAleatorio<T>(T dados, string Collection, Action<string> usarDados){
             instanciaBanco();
             CollectionReference valorRef = db.Collection(Collection);
-            valorRef.AddAsync(dados);
+            valorRef.AddAsync(dados).ContinueWithOnMainThread(task => {
+                DocumentReference addedDocRef = task.Result;
+                usarDados.Invoke(addedDocRef.Id);
+            });
         }
 
         public void enviarProBanco<T>(T dados,string Collection, string Document) where T : struct{
@@ -107,14 +127,6 @@ namespace Trunfo
             });
         }
 
-        // public void pegarDoBanco<T>(string Collection, string Document, Action<Task<T>> usarDados) {
-        //     instanciaBanco();
-        //     db.Collection(Collection).Document(Document).GetSnapshotAsync()
-        //     .ContinueWithOnMainThread(task=>{
-        //         usarDados?.Invoke(task);
-        //     });
-
-        // }
 
         public void deletaTeste(){
             deletaCampo("Valor", "Valores", "valorzinho");
