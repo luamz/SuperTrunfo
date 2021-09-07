@@ -58,7 +58,7 @@ namespace Trunfo
             
             DocumentReference valorRef = db.Collection(Collection).Document(Document);
             valorRef.SetAsync(dados).ContinueWithOnMainThread(task => {
-                Debug.Log("Foi sim mano");
+                Debug.Log("Enviado para o Firebase com Sucesso!");
             });
         }
 

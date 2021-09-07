@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using TMPro;
 
 namespace Trunfo
 {
@@ -10,12 +11,15 @@ namespace Trunfo
     {
         // Jogadores
         [SerializeField] private Jogador jogador1;
-        public Jogador Jogador1 {get=>jogador1;}
+        public Jogador Jogador1 { get => jogador1; }
         [SerializeField] private Jogador jogador2;
-        public Jogador Jogador2 {get=>jogador2;}
+        public Jogador Jogador2 { get => jogador2; }
 
         // Baralho do Jogo
         [SerializeField] private List<Card> Baralho;
+
+        // Mensagem
+        public TextMeshProUGUI DisplayMensagem;
 
         // Gerenciador Firestore
         public GerenciadorFirestore Gerenciador;
@@ -23,8 +27,8 @@ namespace Trunfo
         // Start is called before the first frame update
         void Start()
         {
-            // Se for o criador da sala, embaralha o baralho, 
-            // divide baralho e envia para o adversário
+            Mensagem("Seja Bem-Vindo!\nPegue uma carta");
+            // Se for o criador da sala, embaralha, divide baralho e envia para o adversário
             if (jogador1.criador)
             {
                 DividirBaralho();
@@ -37,8 +41,7 @@ namespace Trunfo
                 RecebeBaralho();
             }
 
-            // Envia carta na mão quando o critério é escolhido
-            // Comparação feita dentro da dita função
+            // Envia carta na mão quando o critério é escolhido (Onde a comparação é feita)
             CriterioDisplay.criterioEscolhido += EnviaCartaNaMaoResultado;
         }
 
@@ -60,7 +63,7 @@ namespace Trunfo
             // Transformando cartas para String
             List<string> CartasIdsCriador = new List<string>();
             List<string> CartasIdsAdversario = new List<string>();
-            
+
             foreach (var carta in jogador1.Baralho.Cartas)
             {
                 CartasIdsCriador.Add(carta.Identificacao.ToString());
@@ -93,7 +96,7 @@ namespace Trunfo
 
                     // Lista do Jogador 2 ( Criador da Partida )
                     List<string> listJogador2 = new List<string>(task.BaralhoCriador);
-                    
+
                     // Jogador1
                     listJogador1.ForEach(i =>
                     {
@@ -133,12 +136,11 @@ namespace Trunfo
             return null;
         }
 
-
         // Jogador do turno (ou seja, aquele que compara) envia ao outro
         // o id da carta da mão dele e o resultado da comparação
-        public void EnviaCartaNaMaoResultado(int index){
-            bool Ganha = ComparaCriterio(Jogador1.CartaNaMao,Jogador2.CartaNaMao,index);
-            
+        public void EnviaCartaNaMaoResultado(int index)
+        {
+            bool Ganha = ComparaCriterio(Jogador1.CartaNaMao, Jogador2.CartaNaMao, index);
             StructCarta carta = new StructCarta
             {
                 Id = Jogador1.CartaNaMao.carta.Identificacao.ToString(),
@@ -147,33 +149,116 @@ namespace Trunfo
 
             // Envia baralho para o firebase            
             Gerenciador.enviarProBanco<StructCarta>(carta, "salas", "Sala teste4");
-            TrataGanhador(Ganha);
+            TrataGanhadorNoRemetente(Ganha);
+
         }
 
         // Jogador que não é do turno (ou seja, aquele que não compara)
         // recebe o id da carta da mão do adversario e o resultado da comparação
-        public void RecebeCartaNaMaoAdversario(){
+        public void RecebeCartaNaMaoAdversario()
+        {
             Gerenciador.pegarDoBanco<StructCarta>("salas", "Sala teste4",
                 task =>
                 {
                     Card cartaNaMaoAdversario = ConverteParaCarta(task.Id);
-                    TrataGanhador(task.JogadorDoTurnoGanha);
+                    TrataGanhadorNoDestinatario(task.JogadorDoTurnoGanha);
                 }
             );
         }
 
-        private void TrataGanhador(bool JogadorDoTurnoGanha){
-            // Jogador do Turno ganha, logo eu perdi
+        // Trata quem ganhou e perdeu naquele que recebe o resultado
+        private void TrataGanhadorNoDestinatario(bool JogadorDoTurnoGanha)
+        {
+            // Jogador do Turno (Remetente) ganha, logo o jogador destinário(eu) perde
             if (JogadorDoTurnoGanha)
-                InsereCartasNoGanhador(Jogador2,Jogador1);
-            // Jogador do turno perde
+            {
+                // Mantém turnos
+
+                // Insere cartas no ganhador (Remetente)
+                InsereCartasNoGanhador(Jogador2, Jogador1);
+
+                // Mensagem display
+                if (Jogador2.Baralho.Cartas.Length < 32)
+                    Mensagem("Sua carta perdeu:(\nPegue outra carta");
+                else if (Jogador2.Baralho.Cartas.Length == 32)
+                    Mensagem("Você perdeu o jogo :(");
+            }
+
+            //  Jogador do Turno (Remetente) perde, logo o jogador destinário (eu) ganha
+            // e o turno passa a ser dele
             else
-                InsereCartasNoGanhador(Jogador1,Jogador2);
+            {
+                // Troca turnos
+                Jogador1.seuTurno = true;
+                Jogador2.seuTurno = false;
+
+                // Insere cartas no ganhador (Destinatário)
+                InsereCartasNoGanhador(Jogador1, Jogador2);
+
+                // Mensagem Display
+                if (Jogador1.Baralho.Cartas.Length < 32)
+                    Mensagem("Sua carta ganhou!\nPegue outra carta");
+                else if (Jogador1.Baralho.Cartas.Length < 32)
+                    Mensagem("Você ganhou o jogo!");
+            }
         }
 
-        private void InsereCartasNoGanhador(Jogador Ganhador, Jogador Perdedor){
+        // Trata quem ganhou e perdeu naquele que envia o resultado
+        private void TrataGanhadorNoRemetente(bool JogadorDoTurnoGanha)
+        {
+            // Jogador do Turno(Rementente, eu) ganha, logo o destinatário perdeu
+            if (JogadorDoTurnoGanha)
+            {
+                // Turnos se mantém
+
+                // Insere cartas no ganhador (Remetente)
+                InsereCartasNoGanhador(Jogador1, Jogador2);
+
+                // Mensagem Display
+                if (Jogador1.Baralho.Cartas.Length < 32)
+                    Mensagem("Sua carta ganhou!\nPegue outra carta");
+                else if (Jogador1.Baralho.Cartas.Length < 32)
+                    Mensagem("Você ganhou o jogo!");
+
+            }
+            // Jogador do turno (Remetente, eu) perde, logo o destinatário venceu
+            else
+            {
+                // Troca turnos
+                Jogador1.seuTurno = false;
+                Jogador2.seuTurno = true;
+
+                // Insere cartas no ganhador (Destinatário)
+                InsereCartasNoGanhador(Jogador2, Jogador1);
+
+                // Mensagem Display 
+                if (Jogador2.Baralho.Cartas.Length < 32)
+                    Mensagem("Sua carta perdeu:(\nPegue outra carta");
+                else if (Jogador2.Baralho.Cartas.Length == 32)
+                    Mensagem("Você perdeu o jogo :(");
+            }
+        }
+
+        private void InsereCartasNoGanhador(Jogador Ganhador, Jogador Perdedor)
+        {
             Ganhador.Baralho.InsereCarta(Ganhador.CartaNaMao.carta);
             Ganhador.Baralho.InsereCarta(Perdedor.CartaNaMao.carta);
+        }
+
+        public void LimparMensagem()
+        {
+            DisplayMensagem.text = "";
+        }
+
+        public void Mensagem(string texto)
+        {
+            DisplayMensagem.text = texto;
+        }
+
+        public void MensagemCriterio(string texto)
+        {
+            if (Jogador1.seuTurno)
+                DisplayMensagem.text = "Escolha um critério";
         }
 
         bool ComparaCriterio(CardDisplay carta1, CardDisplay carta2, int index)
@@ -181,6 +266,6 @@ namespace Trunfo
             // Vence a que tiver maior critério
             return carta1.carta.Compara(carta2.carta, index);
         }
-    
+
     }
 }
