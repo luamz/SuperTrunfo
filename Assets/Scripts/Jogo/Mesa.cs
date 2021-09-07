@@ -120,7 +120,7 @@ namespace Trunfo
             );
         }
 
-        public Card ConverteParaCarta(string CartasIds)
+        private Card ConverteParaCarta(string CartasIds)
         {
             // Checa nas cartas do baralho da mesa
             foreach (Card carta in Baralho)
@@ -161,44 +161,51 @@ namespace Trunfo
                 task =>
                 {
                     Card cartaNaMaoAdversario = ConverteParaCarta(task.Id);
-                    TrataGanhador(task.JogadorDoTurnoGanha);
+                    TrataGanhador(!task.JogadorDoTurnoGanha);
+                    Jogador2.Animacao.ViraCartaOponente();
                 }
             );
         }
 
-        private void TrataGanhador(bool JogadorDoTurnoGanha){
+        private void TrataGanhador(bool JogadorLocal)
+        {
             // Jogador do Turno ganha, logo eu perdi
-            if (JogadorDoTurnoGanha){
+            if (JogadorLocal)
+            {
                 // Turnos se mantém
 
                 // Insere cartas no perdedor
-                InsereCartasNoGanhador(Jogador2,Jogador1);
+                InsereCartasNoGanhador(Jogador1, Jogador2);
+                // Mensagem Display
+                if (Jogador1.Baralho.Cartas.Length < 32)
+                    Mensagem("Sua carta ganhou!\nPegue outra carta");
+                else
+                    Mensagem("Você ganhou o jogo!");
 
-                 // Mensagem display
-                if (Jogador2.Baralho.Cartas.Length < 32)
-                    Mensagem("Sua carta perdeu:(\nPegue outra carta");
-                else if (Jogador2.Baralho.Cartas.Length == 32)
-                    Mensagem("Você perdeu o jogo :(");
+
             }
-            else{
+            else
+            {
                 // Troca turnos
                 Jogador1.seuTurno = true;
                 Jogador2.seuTurno = false;
 
                 // Insere cartas no ganhador
-                InsereCartasNoGanhador(Jogador1,Jogador2);
-                // Mensagem Display
-                if (Jogador1.Baralho.Cartas.Length < 32)
-                    Mensagem("Sua carta ganhou!\nPegue outra carta");
-                else if (Jogador1.Baralho.Cartas.Length < 32)
-                    Mensagem("Você ganhou o jogo!");
+                InsereCartasNoGanhador(Jogador2, Jogador1);
+
+                // Mensagem display
+                if (Jogador2.Baralho.Cartas.Length < 32)
+                    Mensagem("Sua carta perdeu:(\nPegue outra carta");
+                else if (Jogador2.Baralho.Cartas.Length == 32)
+                    Mensagem("Você perdeu o jogo :(");
             }
         }
-
         private void InsereCartasNoGanhador(Jogador Ganhador, Jogador Perdedor)
         {
             Ganhador.Baralho.InsereCarta(Ganhador.CartaNaMao.carta);
             Ganhador.Baralho.InsereCarta(Perdedor.CartaNaMao.carta);
+            Jogador2.Animacao.OnTerminaMovimento += Ganhador.RetornaCarta;
+            Jogador2.Animacao.OnTerminaMovimento += Perdedor.DaParaAdversario;
         }
 
         public void LimparMensagem()
@@ -209,12 +216,6 @@ namespace Trunfo
         public void Mensagem(string texto)
         {
             DisplayMensagem.text = texto;
-        }
-
-        public void MensagemCriterio(string texto)
-        {
-            if (Jogador1.seuTurno)
-                DisplayMensagem.text = "Escolha um critério";
         }
 
         bool ComparaCriterio(CardDisplay carta1, CardDisplay carta2, int index)

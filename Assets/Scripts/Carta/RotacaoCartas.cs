@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,26 +9,36 @@ namespace Trunfo
     {
         private RectTransform carta;
         [SerializeField] private RectTransform transformFinal;
-        public float vel = 0.1f;
+        [SerializeField] private RectTransform transformBaralhoAdversario;
+        [SerializeField] private float vel = 1f;
         private transformInfo posicaoInicial;
         private transformInfo posicaoInicialAdversario;
         private transformInfo posicaoFinal;
-        private float count = 0;
+        // private float count = 0;
         private CardDisplay card_display;
-        private bool frente = false;
+        // private bool frente = false;
+        private MoveStrategy moveStrategyAtual;
+        private ViraNaMetadeStrategy compraCarta;
+        private DefaultMoveStrategy compraOponente;
+        private DesviraNaMetadeStrategy daACartaParaAdversario;
+        private ViraNaMetadeStrategy revelaCartaOponente;
+        private DesviraNaMetadeStrategy retornaCarta;
+        private NaoMoveStrategy cartaParada;
+        public Action OnTerminaMovimento;
 
-        private readonly struct transformInfo
+        private struct transformInfo
         {
-            public readonly Vector3 position;
-            public readonly Quaternion rotation;
+            public Vector3 position;
+            public Quaternion rotation;
             public transformInfo(RectTransform transform)
             {
                 position = transform.position;
                 rotation = transform.rotation;
             }
         }
+
         // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
             card_display = GetComponent<CardDisplay>();
             card_display.SetaVerso();
@@ -35,72 +46,157 @@ namespace Trunfo
             carta = GetComponent<RectTransform>();
 
             posicaoInicial = new transformInfo(carta);
-            posicaoFinal = new transformInfo(transformFinal.GetComponent<RectTransform>());
+            posicaoFinal = new transformInfo(transformFinal);
+            posicaoInicialAdversario = new transformInfo(transformBaralhoAdversario);
 
+            compraCarta = new ViraNaMetadeStrategy(posicaoInicial, posicaoFinal, vel, card_display);
+            compraOponente = new DefaultMoveStrategy(posicaoInicial, posicaoFinal, vel, card_display);
+            retornaCarta = new DesviraNaMetadeStrategy(posicaoFinal, posicaoInicial, vel, card_display);
+            daACartaParaAdversario = new DesviraNaMetadeStrategy(posicaoFinal, posicaoInicialAdversario, vel, card_display);
+            revelaCartaOponente = new ViraNaMetadeStrategy(new transformInfo
+            { position = transformFinal.position, rotation = carta.rotation },
+                 posicaoFinal, vel, card_display);
+            cartaParada = new NaoMoveStrategy(posicaoInicial, posicaoFinal, vel, card_display);
+
+            moveStrategyAtual = cartaParada;
         }
 
         // Update is called once per frame
         void Update()
         {
-            vai_carta();
+            moveStrategyAtual.moveCarta();
+        }
+        public void CompraCarta()
+        {
+            compraCarta.Reseta();
+            moveStrategyAtual = compraCarta;
+        }
+        public void ParaCarta()
+        {
+            cartaParada.Reseta();
+            moveStrategyAtual = cartaParada;
+        }
+        public void CompraCartaOponente()
+        {
+            compraOponente.Reseta();
+            moveStrategyAtual = compraOponente;
+        }
+        public void ViraCartaOponente()
+        {
+            revelaCartaOponente.Reseta();
+            moveStrategyAtual = revelaCartaOponente;
+        }
+        public void DaACartaParaAdversario()
+        {
+            daACartaParaAdversario.Reseta();
+            moveStrategyAtual = daACartaParaAdversario;
+        }
+        public void RetornaCarta()
+        {
+            retornaCarta.Reseta();
+            moveStrategyAtual = retornaCarta;
         }
 
-        public void PermiteCriterio()
+
+        private abstract class MoveStrategy
         {
-
-
-        }
-
-        public void Reseta()
-        {
-            count = 0;
-            card_display.SetaVerso();
-            frente = false;
-        }
-
-        private void vai_carta()
-        {
-            if (count < 1)
+            protected readonly CardDisplay card_display;
+            protected readonly RectTransform carta;
+            protected readonly transformInfo posicaoInicial;
+            protected readonly transformInfo posicaoFinal;
+            private readonly float vel;
+            protected float count = 0;
+            protected RotacaoCartas rotacao;
+            public MoveStrategy(transformInfo posicaoInicial,
+             transformInfo posicaoFinal,
+             float vel,
+             CardDisplay cardDisplay)
             {
-                carta.position = Vector3.Lerp(posicaoInicial.position, posicaoFinal.position, count);
-                carta.rotation = Quaternion.Lerp(posicaoInicial.rotation, posicaoFinal.rotation, count);
-                count += vel * Time.deltaTime;
+                this.posicaoInicial = posicaoInicial;
+                this.posicaoFinal = posicaoFinal;
+                this.vel = vel;
+                this.card_display = cardDisplay;
+                this.carta = card_display.GetComponent<RectTransform>();
+                rotacao = card_display.GetComponent<RotacaoCartas>();
             }
-            if (count > 0.5f && !frente)
+            public virtual void Reseta()
             {
-                frente = true;
-                card_display.SetaFrente();
-            }
-        }
-
-        private void VaiProAdversario()
-        {
-            if (count < 1)
-            {
-                carta.position = Vector3.Lerp(posicaoInicial.position, posicaoFinal.position, count);
-                carta.rotation = Quaternion.Lerp(posicaoInicial.rotation, posicaoFinal.rotation, count);
-                count += vel * Time.deltaTime;
-            }
-            if (count > 0.5f && !frente)
-            {
-                frente = true;
-                card_display.SetaFrente();
-            }
-        }
-
-        private void VoltaProBaralho()
-        {
-            if (count < 1)
-            {
-                carta.position = Vector3.Lerp(posicaoFinal.position, posicaoInicial.position, count);
-                carta.rotation = Quaternion.Lerp(posicaoFinal.rotation, posicaoInicial.rotation, count);
-                count += vel * Time.deltaTime;
-            }
-            if (count > 0.5f && frente)
-            {
-                frente = false;
+                count = 0;
                 card_display.SetaVerso();
+                jaDisparouEvento = false;
             }
+            private bool jaDisparouEvento = false;
+            public virtual void moveCarta()
+            {
+                if (count < 1)
+                {
+                    carta.position = Vector3.Lerp(posicaoInicial.position, posicaoFinal.position, count);
+                    carta.rotation = Quaternion.Lerp(posicaoInicial.rotation, posicaoFinal.rotation, count);
+                    count += vel * Time.deltaTime;
+                }
+                else if (!jaDisparouEvento)
+                {
+                    jaDisparouEvento = true;
+                    rotacao.OnTerminaMovimento?.Invoke();
+                }
+            }
+        }
+        private class DefaultMoveStrategy : MoveStrategy
+        {
+            public DefaultMoveStrategy(transformInfo posicaoInicial, transformInfo posicaoFinal, float vel, CardDisplay cardDisplay) : base(posicaoInicial, posicaoFinal, vel, cardDisplay)
+            {
+            }
+        }
+        private class ViraNaMetadeStrategy : MoveStrategy
+        {
+            public ViraNaMetadeStrategy(transformInfo posicaoInicial, transformInfo posicaoFinal,
+                float vel, CardDisplay cardDisplay) : base(posicaoInicial, posicaoFinal, vel, cardDisplay)
+            { }
+            public override void Reseta()
+            {
+                base.Reseta();
+                frente = false;
+            }
+            private bool frente = false;
+            public override void moveCarta()
+            {
+                base.moveCarta();
+                if (count > 0.5f && !frente)
+                {
+                    frente = true;
+                    card_display.SetaFrente();
+                }
+            }
+        }
+        private class DesviraNaMetadeStrategy : MoveStrategy
+        {
+            public DesviraNaMetadeStrategy(transformInfo posicaoInicial, transformInfo posicaoFinal, float vel, CardDisplay cardDisplay) : base(posicaoInicial, posicaoFinal, vel, cardDisplay)
+            {
+            }
+            public override void Reseta()
+            {
+                base.Reseta();
+                verso = false;
+            }
+            private bool verso = false;
+            public override void moveCarta()
+            {
+                base.moveCarta();
+                if (count > 0.5f && !verso)
+                {
+                    verso = true;
+                    card_display.SetaVerso();
+                }
+            }
+
+        }
+        private class NaoMoveStrategy : MoveStrategy
+        {
+            public NaoMoveStrategy(transformInfo posicaoInicial, transformInfo posicaoFinal,
+            float vel, CardDisplay cardDisplay) : base(posicaoInicial, posicaoFinal, vel, cardDisplay)
+            {
+            }
+            public override void moveCarta() { }
         }
     }
 }

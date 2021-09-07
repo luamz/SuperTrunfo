@@ -6,6 +6,7 @@ namespace Trunfo
 {
     public class Jogador : MonoBehaviour
     {
+        [SerializeField] private Mesa mesa;
         [SerializeField] public CardDisplay CartaNaMao;
         //Numero do jogador
         public int numeroJogador;
@@ -21,11 +22,12 @@ namespace Trunfo
         [SerializeField] private Baralho baralho;
         public Baralho Baralho { get => baralho; }
 
-
+        public RotacaoCartas Animacao { get; private set; }
         // Start is called before the first frame update
         void Start()
         {
             CriterioDisplay.criterioEscolhido += LiberaCompra;
+            Animacao = CartaNaMao.GetComponent<RotacaoCartas>();
         }
 
         // Update is called once per frame
@@ -39,20 +41,54 @@ namespace Trunfo
         {
             if (CompraLiberada)
             {
-        
                 var carta = baralho.CompraCarta();
                 CartaNaMao.carta = carta;
-                Debug.Log("Carta comprada: "+ carta.Identificacao.ToString());
                 CartaNaMao.gameObject.SetActive(true);
-                CartaNaMao.GetComponent<RotacaoCartas>().Reseta();
+                Debug.Log(CartaNaMao);
+                if (numeroJogador == 1)
+                {
+                    Animacao.CompraCarta();
+                    Animacao.OnTerminaMovimento += DecideLiberarCriterio;
+                }
+                if (numeroJogador == 2) Animacao.CompraCartaOponente();
                 CompraLiberada = false;
             }
+        }
+        private void ComecaCompraDaCarta()
+        {
+
         }
 
         private void LiberaCompra(int index)
         {
             CompraLiberada = true;
-            Debug.Log("Compra de Cartas Liberada");
+            if (numeroJogador == 2) Animacao.ViraCartaOponente();
+        }
+        private void DecideLiberarCriterio()
+        {
+            if (seuTurno && numeroJogador == 1)
+            {
+                CartaNaMao.PontosDeCriterio.ForEach(i => i.LiberaCriterio());
+                mesa.Mensagem("Escolha um critério");
+            }
+            Animacao.OnTerminaMovimento -= DecideLiberarCriterio;
+        }
+        public void RetornaCarta()
+        {
+            Animacao.RetornaCarta();
+            mesa.Jogador2.Animacao.OnTerminaMovimento -= RetornaCarta;
+            Animacao.OnTerminaMovimento += setaParaFalsoQuandoTerminaAAnimacao;
+        }
+        private void setaParaFalsoQuandoTerminaAAnimacao()
+        {
+            CartaNaMao.gameObject.SetActive(false);
+            Animacao.OnTerminaMovimento -= setaParaFalsoQuandoTerminaAAnimacao;
+        }
+        public void DaParaAdversario()
+        {
+            Animacao.DaACartaParaAdversario();
+            mesa.Jogador2.Animacao.OnTerminaMovimento -= DaParaAdversario;
+            Animacao.OnTerminaMovimento += setaParaFalsoQuandoTerminaAAnimacao;
         }
     }
 }
