@@ -42,8 +42,8 @@ namespace Trunfo
         
                 var carta = baralho.CompraCarta();
                 CartaNaMao.carta = carta;
+                Debug.Log("Carta comprada: "+ carta.Identificacao.ToString());
                 CartaNaMao.gameObject.SetActive(true);
-                Debug.Log(CartaNaMao);
                 CartaNaMao.GetComponent<RotacaoCartas>().Reseta();
                 CompraLiberada = false;
             }
@@ -52,8 +52,7 @@ namespace Trunfo
         private void LiberaCompra(int index)
         {
             CompraLiberada = true;
-
-            Debug.Log("Vai malandra");
+            Debug.Log("Compra de Cartas Liberada");
         }
     }
 }
