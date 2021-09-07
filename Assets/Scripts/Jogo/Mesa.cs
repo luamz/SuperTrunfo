@@ -138,7 +138,6 @@ namespace Trunfo
         // o id da carta da mão dele e o resultado da comparação
         public void EnviaCartaNaMaoResultado(int index){
             bool Ganha = ComparaCriterio(Jogador1.CartaNaMao,Jogador2.CartaNaMao,index);
-            TrataGanhador(Ganha);
             
             StructCarta carta = new StructCarta
             {
@@ -147,14 +146,14 @@ namespace Trunfo
             };
 
             // Envia baralho para o firebase            
-            Gerenciador.enviarProBanco<StructCarta>(carta, "salas", "Sala teste2");
-            
+            Gerenciador.enviarProBanco<StructCarta>(carta, "salas", "Sala teste4");
+            TrataGanhador(Ganha);
         }
 
         // Jogador que não é do turno (ou seja, aquele que não compara)
         // recebe o id da carta da mão do adversario e o resultado da comparação
         public void RecebeCartaNaMaoAdversario(){
-            Gerenciador.pegarDoBanco<StructCarta>("salas", "Sala teste2",
+            Gerenciador.pegarDoBanco<StructCarta>("salas", "Sala teste4",
                 task =>
                 {
                     Card cartaNaMaoAdversario = ConverteParaCarta(task.Id);

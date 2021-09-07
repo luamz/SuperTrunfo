@@ -10,6 +10,7 @@ namespace Trunfo
         [SerializeField] private RectTransform transformFinal;
         public float vel = 0.1f;
         private transformInfo posicaoInicial;
+        private transformInfo posicaoInicialAdversario;
         private transformInfo posicaoFinal;
         private float count = 0;
         private CardDisplay card_display;
@@ -43,11 +44,16 @@ namespace Trunfo
         {
             vai_carta();
         }
+
+        public void PermiteCriterio()
+        {
+
+
+        }
+
         public void Reseta()
         {
             count = 0;
-            carta.position = posicaoInicial.position;
-            carta.rotation = posicaoInicial.rotation;
             card_display.SetaVerso();
             frente = false;
         }
@@ -64,6 +70,36 @@ namespace Trunfo
             {
                 frente = true;
                 card_display.SetaFrente();
+            }
+        }
+
+        private void VaiProAdversario()
+        {
+            if (count < 1)
+            {
+                carta.position = Vector3.Lerp(posicaoInicial.position, posicaoFinal.position, count);
+                carta.rotation = Quaternion.Lerp(posicaoInicial.rotation, posicaoFinal.rotation, count);
+                count += vel * Time.deltaTime;
+            }
+            if (count > 0.5f && !frente)
+            {
+                frente = true;
+                card_display.SetaFrente();
+            }
+        }
+
+        private void VoltaProBaralho()
+        {
+            if (count < 1)
+            {
+                carta.position = Vector3.Lerp(posicaoFinal.position, posicaoInicial.position, count);
+                carta.rotation = Quaternion.Lerp(posicaoFinal.rotation, posicaoInicial.rotation, count);
+                count += vel * Time.deltaTime;
+            }
+            if (count > 0.5f && frente)
+            {
+                frente = false;
+                card_display.SetaVerso();
             }
         }
     }
