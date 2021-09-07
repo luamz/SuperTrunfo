@@ -20,14 +20,14 @@ namespace Trunfo
             db = FirebaseFirestore.DefaultInstance;
         }
 
-        public void mandaString(){
-            StructCarta teste = new StructCarta{
-                Id = "B5",
-                Baralho = new string[] {"Primeiro","Segundo","Terceiro"}
-            };
+        // public void mandaString(){
+        //     StructCarta teste = new StructCarta{
+        //         Id = "B5",
+        //         Baralho = new string[] {"Primeiro","Segundo","Terceiro"}
+        //     };
             
-            enviarProBanco<StructCarta>(teste, "salas", "Sala teste");
-        }
+        //     enviarProBanco<StructCarta>(teste, "salas", "Sala teste");
+        // }
 
        
 

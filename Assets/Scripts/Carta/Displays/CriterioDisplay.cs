@@ -22,12 +22,9 @@ namespace Trunfo
             numCriterio = index;
         }
 
-        public void Aaaaaa()
+        public void EscolheCriterio()
         {
             criterioEscolhido?.Invoke(numCriterio);
-            Debug.Log(nome.text);
-            Debug.Log(valor.text);
-            Debug.Log(numCriterio);
         }
     }
 }

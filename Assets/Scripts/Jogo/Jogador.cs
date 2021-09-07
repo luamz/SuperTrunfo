@@ -25,7 +25,7 @@ namespace Trunfo
         // Start is called before the first frame update
         void Start()
         {
-
+            CriterioDisplay.criterioEscolhido += LiberaCompra;
         }
 
         // Update is called once per frame
@@ -33,14 +33,27 @@ namespace Trunfo
         {
 
         }
-        private bool primeiraVez = true;
+
+        private bool CompraLiberada = true;
         public void CompraCarta()
         {
-            var carta = baralho.CompraCarta();
-            CartaNaMao.carta = carta;
-            CartaNaMao.gameObject.SetActive(true);
-            if (primeiraVez) primeiraVez = false;
-            else CartaNaMao.GetComponent<RotacaoCartas>().Reseta();
+            if (CompraLiberada)
+            {
+        
+                var carta = baralho.CompraCarta();
+                CartaNaMao.carta = carta;
+                CartaNaMao.gameObject.SetActive(true);
+                Debug.Log(CartaNaMao);
+                CartaNaMao.GetComponent<RotacaoCartas>().Reseta();
+                CompraLiberada = false;
+            }
+        }
+
+        private void LiberaCompra(int index)
+        {
+            CompraLiberada = true;
+
+            Debug.Log("Vai malandra");
         }
     }
 }
