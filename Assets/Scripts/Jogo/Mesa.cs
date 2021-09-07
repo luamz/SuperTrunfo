@@ -187,8 +187,8 @@ namespace Trunfo
             else
             {
                 // Troca turnos
-                Jogador1.seuTurno = true;
-                Jogador2.seuTurno = false;
+                Jogador1.seuTurno = false;
+                Jogador2.seuTurno = true;
 
                 // Insere cartas no ganhador
                 InsereCartasNoGanhador(Jogador2, Jogador1);

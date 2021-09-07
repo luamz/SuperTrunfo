@@ -22,12 +22,12 @@ namespace Trunfo
         [SerializeField] private Baralho baralho;
         public Baralho Baralho { get => baralho; }
 
-        public RotacaoCartas Animacao { get; private set; }
+        public Animacao Animacao { get; private set; }
         // Start is called before the first frame update
         void Start()
         {
             CriterioDisplay.criterioEscolhido += LiberaCompra;
-            Animacao = CartaNaMao.GetComponent<RotacaoCartas>();
+            Animacao = CartaNaMao.GetComponent<Animacao>();
         }
 
         // Update is called once per frame

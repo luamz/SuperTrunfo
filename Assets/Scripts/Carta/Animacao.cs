@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Trunfo
 {
-    public class RotacaoCartas : MonoBehaviour
+    public class Animacao : MonoBehaviour
     {
         private RectTransform carta;
         [SerializeField] private RectTransform transformFinal;
@@ -106,7 +106,7 @@ namespace Trunfo
             protected readonly transformInfo posicaoFinal;
             private readonly float vel;
             protected float count = 0;
-            protected RotacaoCartas rotacao;
+            protected Animacao rotacao;
             public MoveStrategy(transformInfo posicaoInicial,
              transformInfo posicaoFinal,
              float vel,
@@ -117,7 +117,7 @@ namespace Trunfo
                 this.vel = vel;
                 this.card_display = cardDisplay;
                 this.carta = card_display.GetComponent<RectTransform>();
-                rotacao = card_display.GetComponent<RotacaoCartas>();
+                rotacao = card_display.GetComponent<Animacao>();
             }
             public virtual void Reseta()
             {
@@ -176,6 +176,7 @@ namespace Trunfo
             public override void Reseta()
             {
                 base.Reseta();
+                card_display.SetaFrente();
                 verso = false;
             }
             private bool verso = false;
