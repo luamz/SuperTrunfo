@@ -149,7 +149,7 @@ namespace Trunfo
 
             // Envia baralho para o firebase            
             Gerenciador.enviarProBanco<StructCarta>(carta, "salas", "Sala teste4");
-            TrataGanhadorNoRemetente(Ganha);
+            TrataGanhador(Ganha);
 
         }
 
@@ -161,81 +161,37 @@ namespace Trunfo
                 task =>
                 {
                     Card cartaNaMaoAdversario = ConverteParaCarta(task.Id);
-                    TrataGanhadorNoDestinatario(task.JogadorDoTurnoGanha);
+                    TrataGanhador(task.JogadorDoTurnoGanha);
                 }
             );
         }
 
-        // Trata quem ganhou e perdeu naquele que recebe o resultado
-        private void TrataGanhadorNoDestinatario(bool JogadorDoTurnoGanha)
-        {
-            // Jogador do Turno (Remetente) ganha, logo o jogador destinário(eu) perde
-            if (JogadorDoTurnoGanha)
-            {
-                // Mantém turnos
+        private void TrataGanhador(bool JogadorDoTurnoGanha){
+            // Jogador do Turno ganha, logo eu perdi
+            if (JogadorDoTurnoGanha){
+                // Turnos se mantém
 
-                // Insere cartas no ganhador (Remetente)
-                InsereCartasNoGanhador(Jogador2, Jogador1);
+                // Insere cartas no perdedor
+                InsereCartasNoGanhador(Jogador2,Jogador1);
 
-                // Mensagem display
+                 // Mensagem display
                 if (Jogador2.Baralho.Cartas.Length < 32)
                     Mensagem("Sua carta perdeu:(\nPegue outra carta");
                 else if (Jogador2.Baralho.Cartas.Length == 32)
                     Mensagem("Você perdeu o jogo :(");
             }
-
-            //  Jogador do Turno (Remetente) perde, logo o jogador destinário (eu) ganha
-            // e o turno passa a ser dele
-            else
-            {
+            else{
                 // Troca turnos
                 Jogador1.seuTurno = true;
                 Jogador2.seuTurno = false;
 
-                // Insere cartas no ganhador (Destinatário)
-                InsereCartasNoGanhador(Jogador1, Jogador2);
-
+                // Insere cartas no ganhador
+                InsereCartasNoGanhador(Jogador1,Jogador2);
                 // Mensagem Display
                 if (Jogador1.Baralho.Cartas.Length < 32)
                     Mensagem("Sua carta ganhou!\nPegue outra carta");
                 else if (Jogador1.Baralho.Cartas.Length < 32)
                     Mensagem("Você ganhou o jogo!");
-            }
-        }
-
-        // Trata quem ganhou e perdeu naquele que envia o resultado
-        private void TrataGanhadorNoRemetente(bool JogadorDoTurnoGanha)
-        {
-            // Jogador do Turno(Rementente, eu) ganha, logo o destinatário perdeu
-            if (JogadorDoTurnoGanha)
-            {
-                // Turnos se mantém
-
-                // Insere cartas no ganhador (Remetente)
-                InsereCartasNoGanhador(Jogador1, Jogador2);
-
-                // Mensagem Display
-                if (Jogador1.Baralho.Cartas.Length < 32)
-                    Mensagem("Sua carta ganhou!\nPegue outra carta");
-                else if (Jogador1.Baralho.Cartas.Length < 32)
-                    Mensagem("Você ganhou o jogo!");
-
-            }
-            // Jogador do turno (Remetente, eu) perde, logo o destinatário venceu
-            else
-            {
-                // Troca turnos
-                Jogador1.seuTurno = false;
-                Jogador2.seuTurno = true;
-
-                // Insere cartas no ganhador (Destinatário)
-                InsereCartasNoGanhador(Jogador2, Jogador1);
-
-                // Mensagem Display 
-                if (Jogador2.Baralho.Cartas.Length < 32)
-                    Mensagem("Sua carta perdeu:(\nPegue outra carta");
-                else if (Jogador2.Baralho.Cartas.Length == 32)
-                    Mensagem("Você perdeu o jogo :(");
             }
         }
 
