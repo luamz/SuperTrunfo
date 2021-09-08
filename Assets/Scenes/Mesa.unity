@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028355, g: 0.22571374, b: 0.30692255, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1307,6 +1307,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3708704284726909724, guid: 23824e3d0c6d1cf44bc128e301fcff0e,
         type: 3}
+      propertyPath: seuTurno
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3708704284726909724, guid: 23824e3d0c6d1cf44bc128e301fcff0e,
+        type: 3}
       propertyPath: numeroJogador
       value: 2
       objectReference: {fileID: 0}
@@ -1429,6 +1434,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DeckEmpilhado Oponente
+      objectReference: {fileID: 0}
+    - target: {fileID: 3878884178107399257, guid: 23824e3d0c6d1cf44bc128e301fcff0e,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4897586602165468820, guid: 23824e3d0c6d1cf44bc128e301fcff0e,
         type: 3}
@@ -2619,6 +2629,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d861748e45e7609ed8bab562a2d598a7, type: 2}
   - {fileID: 11400000, guid: fdc82177d19bb5e60a5e5ec6d73ebcae, type: 2}
   DisplayMensagem: {fileID: 830314461}
+  BotaoPaginaInicial: {fileID: 0}
   Gerenciador: {fileID: 1690455036}
 --- !u!1 &1699537705
 GameObject:

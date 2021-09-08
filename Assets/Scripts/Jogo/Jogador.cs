@@ -30,12 +30,6 @@ namespace Trunfo
             Animacao = CartaNaMao.GetComponent<Animacao>();
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
         private bool CompraLiberada = true;
         public void CompraCarta()
         {
@@ -44,7 +38,6 @@ namespace Trunfo
                 var carta = baralho.CompraCarta();
                 CartaNaMao.carta = carta;
                 CartaNaMao.gameObject.SetActive(true);
-                Debug.Log(CartaNaMao);
                 if (numeroJogador == 1)
                 {
                     Animacao.CompraCarta();
@@ -77,18 +70,20 @@ namespace Trunfo
         {
             Animacao.RetornaCarta();
             mesa.Jogador2.Animacao.OnTerminaMovimento -= RetornaCarta;
-            Animacao.OnTerminaMovimento += setaParaFalsoQuandoTerminaAAnimacao;
+            Animacao.OnTerminaMovimento += resetaNoFimDoTurno;
         }
-        private void setaParaFalsoQuandoTerminaAAnimacao()
+        private void resetaNoFimDoTurno()
         {
             CartaNaMao.gameObject.SetActive(false);
-            Animacao.OnTerminaMovimento -= setaParaFalsoQuandoTerminaAAnimacao;
+            Animacao.OnTerminaMovimento -= resetaNoFimDoTurno;
+            CompraLiberada = true;
+            CompraCarta();
         }
         public void DaParaAdversario()
         {
             Animacao.DaACartaParaAdversario();
             mesa.Jogador2.Animacao.OnTerminaMovimento -= DaParaAdversario;
-            Animacao.OnTerminaMovimento += setaParaFalsoQuandoTerminaAAnimacao;
+            Animacao.OnTerminaMovimento += resetaNoFimDoTurno;
         }
     }
 }
