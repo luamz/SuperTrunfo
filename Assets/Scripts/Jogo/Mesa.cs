@@ -43,12 +43,25 @@ namespace Trunfo
             {
                 RecebeBaralho();
             }
-
+            StartCoroutine(ChecaSeOOponeteJogouACarta());
             // Envia carta na mão quando o critério é escolhido (Onde a comparação é feita)
             CriterioDisplay.criterioEscolhido += EnviaCartaNaMaoResultado;
         }
+        /// <summary>À cada 2 segundos checa se o oponente jogou a carta</summary>
+        private IEnumerator ChecaSeOOponeteJogouACarta()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(2.5f);
+                if (jogador2.seuTurno)
+                {
+                    var idNaMaoDoAdversario = jogador2.CartaNaMao.carta.Identificacao.ToString();
+                    RecebeCartaNaMaoAdversario(idNaMaoDoAdversario);
+                }
+            }
+        }
 
-        public void DividirBaralho()
+        private void DividirBaralho()
         {
 
             // Embaralha o baralho
@@ -61,7 +74,7 @@ namespace Trunfo
             jogador2.Baralho.InsereCartas(Baralho.Skip(Baralho.Count() / 2).ToArray());
         }
 
-        public void EnviaBaralho()
+        private void EnviaBaralho()
         {
             // Transformando cartas para String
             List<string> CartasIdsCriador = new List<string>();
@@ -86,19 +99,34 @@ namespace Trunfo
 
             // Envia baralho para o firebase            
             Gerenciador.enviarProBanco<StructBaralho>(baralho, "salas", "Sala teste2");
+            jogador1.CompraCarta();
+            jogador2.CompraCarta();
+            IniciaAPartidaComCartaVazia();
+
+            void IniciaAPartidaComCartaVazia()
+            {
+                StructCarta cartaVazia = new StructCarta
+                {
+                    Id = "",
+                    JogadorDoTurnoGanha = false
+                };
+
+                // Envia baralho para o firebase            
+                Gerenciador.enviarProBanco<StructCarta>(cartaVazia, "salas", "Sala teste4");
+            }
         }
 
-        public void RecebeBaralho()
+        private void RecebeBaralho()
         {
             // Recebe baralho via firebase
             Gerenciador.pegarDoBanco<StructBaralho>("salas", "Sala teste2",
-                task =>
+                baralho =>
                 {
                     // Lista do Jogador 1( Não criou a partida)
-                    List<string> listJogador1 = new List<string>(task.BaralhoAdversario);
+                    List<string> listJogador1 = new List<string>(baralho.BaralhoAdversario);
 
                     // Lista do Jogador 2 ( Criador da Partida )
-                    List<string> listJogador2 = new List<string>(task.BaralhoCriador);
+                    List<string> listJogador2 = new List<string>(baralho.BaralhoCriador);
 
                     // Jogador1
                     listJogador1.ForEach(i =>
@@ -119,6 +147,8 @@ namespace Trunfo
                         jogador2.Baralho.InsereCarta(CartaAtual);
                     }
                     );
+                    jogador1.CompraCarta();
+                    jogador2.CompraCarta();
                 }
             );
         }
@@ -158,14 +188,19 @@ namespace Trunfo
 
         // Jogador que não é do turno (ou seja, aquele que não compara)
         // recebe o id da carta da mão do adversario e o resultado da comparação
-        public void RecebeCartaNaMaoAdversario()
+        // checando se o valor mudou
+        private void RecebeCartaNaMaoAdversario(string idNaMaoDoAdversario)
         {
             Gerenciador.pegarDoBanco<StructCarta>("salas", "Sala teste4",
-                task =>
+                carta =>
                 {
-                    Card cartaNaMaoAdversario = ConverteParaCarta(task.Id);
-                    TrataGanhador(!task.JogadorDoTurnoGanha);
-                    Jogador2.Animacao.ViraCartaOponente();
+                    string idNoBanco = carta.Id;
+                    if (idNoBanco.Equals(idNaMaoDoAdversario))
+                    {
+                        Card cartaNaMaoAdversario = ConverteParaCarta(idNoBanco);
+                        TrataGanhador(!carta.JogadorDoTurnoGanha);
+                        Jogador2.Animacao.ViraCartaOponente();
+                    }
                 }
             );
         }
@@ -175,7 +210,9 @@ namespace Trunfo
             // Jogador do Turno ganha, logo eu perdi
             if (JogadorLocal)
             {
-                // Turnos se mantém
+                // Se ganhou, o proximo turno é seu
+                jogador1.seuTurno = true;
+                jogador2.seuTurno = false;
 
                 // Insere cartas no perdedor
                 InsereCartasNoGanhador(Jogador1, Jogador2);
@@ -190,7 +227,7 @@ namespace Trunfo
             }
             else
             {
-                // Troca turnos
+                // Se perdeu, o proximo turno é do oponente
                 Jogador1.seuTurno = false;
                 Jogador2.seuTurno = true;
 
@@ -223,8 +260,12 @@ namespace Trunfo
             DisplayMensagem.text = texto;
         }
 
-        bool ComparaCriterio(CardDisplay carta1, CardDisplay carta2, int index)
+        private bool ComparaCriterio(CardDisplay carta1, CardDisplay carta2, int index)
         {
+            Debug.LogFormat("pontos jogador local: {0}, pontos jogador remoto: {1}, no index: {2}",
+             jogador1.CartaNaMao.carta.Pontos[index],
+             jogador2.CartaNaMao.carta.Pontos[index],
+             index);
             // Vence a que tiver maior critério
             return carta1.carta.Compara(carta2.carta, index);
         }
