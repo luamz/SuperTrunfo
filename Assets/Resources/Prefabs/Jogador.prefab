@@ -50,6 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70bfb747465f6fe5b9430eef4aa566b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mesa: {fileID: 0}
   CartaNaMao: {fileID: 5852882758341832109}
   numeroJogador: 1
   seuTurno: 1
@@ -62,6 +63,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3708704284726909727}
     m_Modifications:
+    - target: {fileID: 5810202437010086308, guid: 97723e7733be65d4ebd1b9e06094bfc1,
+        type: 3}
+      propertyPath: transformFinal
+      value: 
+      objectReference: {fileID: 3708704285234349964}
     - target: {fileID: 7083717178691457628, guid: 97723e7733be65d4ebd1b9e06094bfc1,
         type: 3}
       propertyPath: m_Name
@@ -209,6 +215,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb0b2bc0316f2974ca349de853c8e2b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &3708704285234349964 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 765032575, guid: 97723e7733be65d4ebd1b9e06094bfc1,
+    type: 3}
+  m_PrefabInstance: {fileID: 3708704285727768563}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5707285938447718055
 PrefabInstance:
   m_ObjectHideFlags: 0
