@@ -57,6 +57,7 @@ namespace Trunfo
             });
         }
 
+
         public void testeColocaFundo()
         {
             StructCarta teste = new StructCarta
@@ -78,6 +79,7 @@ namespace Trunfo
                 Debug.Log("Sub colecao criada");
             });
         }
+
 
         public void testePegaProfundo()
         {
@@ -110,6 +112,7 @@ namespace Trunfo
         }
         public void criaDocumentIdAleatorio<T>(T dados, string Collection, Action<string> usarDados)
         {
+
             instanciaBanco();
             CollectionReference valorRef = db.Collection(Collection);
             valorRef.AddAsync(dados).ContinueWithOnMainThread(task =>
