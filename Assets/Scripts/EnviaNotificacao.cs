@@ -27,7 +27,7 @@ namespace Trunfo
 
             byte[] byteArray = Encoding.UTF8.GetBytes("{"
                                             + "\"app_id\": \"96f64d30-af66-4072-acbb-a98c3d4e9763\","
-                                            + "\"contents\": {\"en\": \"Você é foda Marcos! \"},"
+                                            + "\"contents\": {\"en\": \"Cadê vocês galerinha? \"},"
                                             + "\"filters\": [{\"field\": \"last_session\", \"key\": \"session_time\", \"relation\": \">\", \"value\": \"30.0\"}]}");
 
             string responseContent = null;
