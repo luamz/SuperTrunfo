@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 namespace Trunfo
@@ -10,11 +11,17 @@ namespace Trunfo
     {
         [SerializeField] private TextMeshProUGUI nome;
         [SerializeField] private TextMeshProUGUI valor;
+        private Button botao;
         public int numCriterio { get; private set; }
         internal TextMeshProUGUI Nome { get => nome; }
         internal TextMeshProUGUI Valor { get => valor; }
 
         public static Action<int> criterioEscolhido;
+        void Start()
+        {
+            botao = GetComponent<Button>();
+            botao.enabled = false;
+        }
         public void Inicializa(Card card, int index)
         {
             nome.text = card.tipo.Atributos[index];
@@ -22,12 +29,13 @@ namespace Trunfo
             numCriterio = index;
         }
 
-        public void Aaaaaa()
+        public void EscolheCriterio()
         {
             criterioEscolhido?.Invoke(numCriterio);
-            Debug.Log(nome.text);
-            Debug.Log(valor.text);
-            Debug.Log(numCriterio);
+        }
+        public void LiberaCriterio()
+        {
+            botao.enabled = true;
         }
     }
 }
