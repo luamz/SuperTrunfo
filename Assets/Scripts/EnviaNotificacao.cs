@@ -11,18 +11,24 @@ namespace Trunfo
     {
         public void Envia()
         {
-            var request = WebRequest.Create("https://onesignal.com/api/v1/notifications")
-                        as HttpWebRequest;
-                        
+
+            var request = WebRequest.Create("https://onesignal.com/api/v1/notifications") as HttpWebRequest;
 
             request.KeepAlive = true;
             request.Method = "POST";
             request.ContentType = "application/json; charset=utf-8";
 
+            request.Headers.Add("authorization", "Basic YzE4NTU5MjItOGZiMy00MTQ0LTgwZTUtOGZlNTYxMTY2NzUw");
+
+            // byte[] byteArray = Encoding.UTF8.GetBytes("{"
+            //                                         + "\"app_id\": \"96f64d30-af66-4072-acbb-a98c3d4e9763\","
+            //                                         + "\"contents\": {\"en\": \" e agora victoria grayson ?\"},"
+            //                                         + "\"included_segments\": [\"All\"]}");
+
             byte[] byteArray = Encoding.UTF8.GetBytes("{"
-                                        + "\"app_id\": \"96f64d30-af66-4072-acbb-a98c3d4e9763\","
-                                        + "\"contents\": {\"en\": \"Oi Relâmpago Marquinhos e Rique Seta\"},"
-                                        + "\"include_player_ids\": [\"5fb1ac5e-1d95-47d3-bd5e-70bbf87b5ae9\",\"fba9c574-c6fa-4ed2-a0c8-36743c6ae7b0\"]}");
+                                            + "\"app_id\": \"96f64d30-af66-4072-acbb-a98c3d4e9763\","
+                                            + "\"contents\": {\"en\": \"Você é foda Marcos! \"},"
+                                            + "\"filters\": [{\"field\": \"last_session\", \"key\": \"session_time\", \"relation\": \">\", \"value\": \"30.0\"}]}");
 
             string responseContent = null;
 
