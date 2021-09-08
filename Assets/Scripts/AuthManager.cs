@@ -23,6 +23,7 @@ namespace Trunfo
         public TMP_InputField passwordLoginField;
         public TMP_Text warningLoginText;
         public TMP_Text confirmLoginText;
+        public JogadorStruct jogadorData;
 
         //Register variables
         [Header("Register")]
@@ -51,23 +52,17 @@ namespace Trunfo
                     Debug.LogError("Could not resolve all Firebase dependencies: " + dependencyStatus);
                 }
             });
-        }
-       
-        public FirebaseUser GetUser()
-        {
-            return this.User;
+            DontDestroyOnLoad(this.gameObject);
         }
 
         public void FirestoreConect(string path, object data)
         {
             var firestore = FirebaseFirestore.DefaultInstance;
-            Debug.Log("firestore" + path);
             firestore.Document(path).SetAsync(data);
         }
 
         private void InitializeFirebase()
         {
-            Debug.Log("Setting up Firebase Auth");
             //Set the authentication instance object
             auth = FirebaseAuth.DefaultInstance;
         }
@@ -86,14 +81,14 @@ namespace Trunfo
             StartCoroutine(Register(emailRegisterField.text, passwordRegisterField.text, usernameRegisterField.text));
         }
 
-        public void UpdateFirestore(FirebaseUser User)
+        public void UpdateFirestore(string UserId)
         {
             Dictionary<string, object> status = new Dictionary<string, object>
                 {
                     { "Status", this.status }
                 };
             var firestore = FirebaseFirestore.DefaultInstance;
-            firestore.Collection("jogador").Document(User.UserId).UpdateAsync(status);
+            firestore.Collection("jogador").Document(UserId).UpdateAsync(status);
         }
 
         private IEnumerator Login(string _email, string _password)
@@ -138,8 +133,13 @@ namespace Trunfo
                 //Now get the result
                 this.User = LoginTask.Result;
                 this.status = true;
-                Debug.Log(User);
-                UpdateFirestore(this.User);
+                this.jogadorData = new JogadorStruct
+                {
+                    Name = this.User.DisplayName,
+                    UserToken = this.User.UserId,
+                    Status = this.status
+                };
+                UpdateFirestore(this.jogadorData.UserToken);
                 Debug.LogFormat("User signed in successfully: {0} ({1})", User.DisplayName, User.Email);
                 warningLoginText.text = "";
                 confirmLoginText.text = "Logged In";
