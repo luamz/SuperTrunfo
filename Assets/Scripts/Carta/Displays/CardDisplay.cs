@@ -42,6 +42,7 @@ namespace Trunfo
         }
         public void SetaFrente()
         {
+            SetaVerso();
             ModeloDeFundo.sprite = Frente;
             nome.text = card.Nome;
             identificacao.text = card.Identificacao.ToString();

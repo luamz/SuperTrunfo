@@ -4,6 +4,9 @@ namespace Trunfo{
     [FirestoreData]
     public struct StructBaralho{
         [FirestoreProperty]
-        public string[] Baralho{get; set;}
+        public string[] BaralhoCriador{get; set;}
+        [FirestoreProperty]
+        public string[] BaralhoAdversario{get; set;}
+
     }
 }

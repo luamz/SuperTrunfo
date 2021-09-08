@@ -6,6 +6,6 @@ namespace Trunfo{
         [FirestoreProperty]
         public string Id { get; set; }
         [FirestoreProperty]
-        public string[] Baralho{get; set;}
+        public bool JogadorDoTurnoGanha { get; set; }
     }
 }
