@@ -33,7 +33,9 @@ namespace Trunfo
         private bool CompraLiberada = true;
         public void CompraCarta()
         {
-            if (CompraLiberada)
+            if (CompraLiberada &&
+                mesa.Jogador1.Baralho.Cartas.Length > 0 &&
+                mesa.Jogador2.Baralho.Cartas.Length > 0)
             {
                 var carta = baralho.CompraCarta();
                 CartaNaMao.carta = carta;
