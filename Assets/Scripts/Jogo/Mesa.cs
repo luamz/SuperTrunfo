@@ -217,12 +217,12 @@ namespace Trunfo
                 // Insere cartas no perdedor
                 InsereCartasNoGanhador(Jogador1, Jogador2);
                 // Mensagem Display
-                if (Jogador1.Baralho.Cartas.Length < 32)
+                if (Jogador2.Baralho.Cartas.Length > 0)
                     Mensagem("Sua carta ganhou!\nPegue outra carta");
                 else
                 {
                     Mensagem("Você ganhou o jogo!");
-                    BotaoPaginaInicial.enabled = true;
+                    BotaoPaginaInicial.gameObject.SetActive(true);
                 }
             }
             else
@@ -235,11 +235,13 @@ namespace Trunfo
                 InsereCartasNoGanhador(Jogador2, Jogador1);
 
                 // Mensagem display
-                if (Jogador2.Baralho.Cartas.Length < 32)
+                if (Jogador1.Baralho.Cartas.Length > 0)
                     Mensagem("Sua carta perdeu:(\nPegue outra carta");
-                else if (Jogador2.Baralho.Cartas.Length == 32)
+                else if (Jogador1.Baralho.Cartas.Length == 0)
+                {
                     Mensagem("Você perdeu o jogo :(");
-                BotaoPaginaInicial.enabled = true;
+                    BotaoPaginaInicial.gameObject.SetActive(true);
+                }
             }
         }
         private void InsereCartasNoGanhador(Jogador Ganhador, Jogador Perdedor)
