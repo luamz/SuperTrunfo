@@ -7,6 +7,8 @@ using UnityEngine.UI;
 using Firebase.Firestore;
 using Firebase.Extensions;
 
+// O GerenciadorFirestore é responsavel pelo CRUD do firestore
+
 namespace Trunfo
 {
     public class GerenciadorFirestore : MonoBehaviour
@@ -16,37 +18,19 @@ namespace Trunfo
         {
 
         }
-        void instanciaBanco()
+        void instanciaBanco() 
         {
             db = FirebaseFirestore.DefaultInstance;
         }
 
-        // public void mandaString(){
-        //     StructCarta teste = new StructCarta{
-        //         Id = "B5",
-        //         Baralho = new string[] {"Primeiro","Segundo","Terceiro"}
-        //     };
-
-        //     enviarProBanco<StructCarta>(teste, "salas", "Sala teste");
-        // }
-
-
-
-        // public void pegaString(){
-
-        //     pegarDoBanco("Valores", "valorzinho", (Task<T> task)=>{
-        //         Debug.Log(task.ConvertTo<Teste>());
-        //         });
-        // }
-
-        public void pegaValor()
+        public void pegaValor() 
         {
             // Exemplo pegar um do tipo Teste
             pegarDoBanco<Teste>("Valores", "Que isso irmao", task => { Debug.Log(task.Valor); });
         }
 
         public void pegarDoBanco<T>(string Collection, string Document, Action<T> usarDados)
-        {
+        {   // Essa função recebe uma nome de coleção, um nome de documento e uma função para utilizar os dados recuperados
             instanciaBanco();
 
             db.Collection(Collection).Document(Document).GetSnapshotAsync()
@@ -59,7 +43,7 @@ namespace Trunfo
 
 
         public void testeColocaFundo()
-        {
+        {   // função exemplo para uso da função colocaCamadaProfunda
             StructCarta teste = new StructCarta
             {
                 Id = "Baaaaaaaaa",
@@ -69,8 +53,7 @@ namespace Trunfo
             colocaCamadaProfunda<StructCarta>(teste, "testesubcolecao", "Sala um", "Colec1", "Doc1");
         }
         public void colocaCamadaProfunda<T>(T dados, string ExtCollection, string ExtDocument, string DenCollection, string DenDocument)
-        {
-            // db.Collection(ExtCollection).Document(ExtDocument).Collection(DenCollection).Document(DenDocument).CreateAsync(dados);
+        {// Essa função recebe uma nome de coleção, um nome de documento, sub coleção e sub documento e uma dados para serem inseridos
             instanciaBanco();
             DocumentReference topDoc = db.Collection(ExtCollection).Document(ExtDocument);
             CollectionReference subCollection = topDoc.Collection(DenCollection);
@@ -83,13 +66,13 @@ namespace Trunfo
 
 
         public void testePegaProfundo()
-        {
+        {   // função exemplo para uso da função pegaProfundo 
             // Exemplo pegar um do tipo Carta em subcoleções
             pegaProfundo<StructCarta>("testesubcolecao", "Sala um", "Colec1", "Doc1", task => { Debug.Log(task.Id); });
         }
 
         public void pegaProfundo<T>(string ExtCollection, string ExtDocument, string DenCollection, string DenDocument, Action<T> usarDados)
-        {
+        {// Essa função recebe uma nome de coleção, um nome de documento, sub coleção e sub documento e uma função para utilizar os dados recuperados
             instanciaBanco();
             DocumentReference topDoc = db.Collection(ExtCollection).Document(ExtDocument);
             CollectionReference subCollection = topDoc.Collection(DenCollection);
@@ -103,7 +86,7 @@ namespace Trunfo
         }
 
         public void testeCriaDocIdAleatorio()
-        {
+        {  // função exemplo para uso da função criaDocumentIdAleatorio
             StructCarta teste = new StructCarta
             {
                 Id = "B5",
@@ -114,7 +97,7 @@ namespace Trunfo
         }
         public void criaDocumentIdAleatorio<T>(T dados, string Collection, Action<string> usarDados)
         {
-
+            //Essa função recebe um nome de coleção e cria um document com nome aleatorio com os dados inseridos retornando o id do document
             instanciaBanco();
             CollectionReference valorRef = db.Collection(Collection);
             valorRef.AddAsync(dados).ContinueWithOnMainThread(task =>
@@ -125,7 +108,8 @@ namespace Trunfo
         }
 
         public void enviarProBanco<T>(T dados, string Collection, string Document) where T : struct
-        {
+        { 
+            //Essa função envia dados para o banco na coleção e document especificados
             instanciaBanco();
 
             DocumentReference valorRef = db.Collection(Collection).Document(Document);
@@ -137,11 +121,11 @@ namespace Trunfo
 
 
         public void deletaTeste()
-        {
+        {   // função exemplo para uso da função  deletaCampo
             deletaCampo("Valor", "Valores", "valorzinho");
         }
         public async void deletaCampo(string Campo, string Collection, string Document)
-        {
+        {   // deleta um campo de um document de uma collection
             instanciaBanco();
             DocumentReference cityRef = db.Collection(Collection).Document(Document);
             Dictionary<string, object> updates = new Dictionary<string, object>
