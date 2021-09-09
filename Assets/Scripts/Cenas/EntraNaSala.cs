@@ -11,30 +11,44 @@ namespace Trunfo
     {
         private GameBase authManager;
         private GerenciadorFirestore Gerenciador;
-        [SerializeField] private TMP_InputField codigoDaSala;
-        public string idSala = "";
+        public string idSala;
+
+
         void Start()
         {
             DontDestroyOnLoad(gameObject.transform.root);
+            Notifications.Redireciona += SetIdSala;
             //authManager = GameObject.Find("AuthManeger").GetComponent<GameBase>();
-            Gerenciador = GetComponent<GerenciadorFirestore>();
+
         }
+
+        private void SetIdSala(string idSala)
+        {
+            this.idSala = idSala;
+        }
+
         public void EntraButton()
         {
-            Entra(codigoDaSala.text);
+            Entra(idSala);
         }
+
         /// <summary>Use essa função para entrar na sala</summary>
         public void Entra(string codigo)
         {
+            Debug.Log(codigo);
+            Gerenciador = GetComponent<GerenciadorFirestore>();
+            Debug.Log(Gerenciador);
             Gerenciador.pegarDoBanco<structSala>("salas", codigo,
             sala =>
             {
+                Debug.Log("Tá chegando aqui");
                 if (sala.Adversario == "")
                 {
+                    Debug.Log("E aqui");
                     sala.Adversario = "1";
                     Gerenciador.enviarProBanco(sala, "salas", codigo);
-                    //StartCoroutine(ChecaSeCriadorEntrouNaMesa());
-                    SceneManager.LoadScene("Mesa");
+                    StartCoroutine(ChecaSeCriadorEntrouNaMesa());
+                    //SceneManager.LoadScene("Mesa");
                 }
             });
         }

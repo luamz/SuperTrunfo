@@ -13,6 +13,8 @@ namespace Trunfo
     {
         private static EntraNaSala Sala;
         public EntraNaSala sala;
+        public static Action<string> Redireciona;
+
 
         // Start is called before the first frame update
         void Start()
@@ -47,10 +49,9 @@ namespace Trunfo
 
                 if (cod_sala != null)
                 {
-                    //SceneManager.LoadScene("EntrarPartida");
-                    Sala.Entra(cod_sala);
-                    //TMP_InputField texto = GameObject.Find("Input num_partida").GetComponentInChildren<TMP_InputField>();
-                    //texto.text = cod_sala;
+                    SceneManager.LoadScene("EntrarPartida");
+                    Redireciona?.Invoke(cod_sala);
+
                 }
             }
             catch (Exception ex)
