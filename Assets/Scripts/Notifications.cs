@@ -1,8 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
+
 
 namespace Trunfo
 {
@@ -31,16 +34,32 @@ namespace Trunfo
             OneSignal.PromptForPushNotificationsWithUserResponse(OneSignalPromptForPushNotificationsReponse);
         }
 
-        // Gets called when the player opens a OneSignal notification.
-        private static void OneSignalHandleNotificationOpened(OSNotificationOpenedResult result)
+
+
+        public class Sala
         {
-            string sala_id = result[sala_id];
-            if (sala_id == "aaaa")
+            public string en;
+            public static Sala CreateFromJSON(string jsonString)
             {
-                SceneManager.LoadScene("Mesa");
+                return JsonUtility.FromJson<Sala>(jsonString);
             }
+        }
+
+        // Gets called when the player opens a OneSignal notification.
+        public static void OneSignalHandleNotificationOpened(OSNotificationOpenedResult result)
+        {
+
+
 
             SceneManager.LoadScene("EntrarPartida");
+            //string Sala = result.ToString();
+            Sala sala = Sala.CreateFromJSON(result.ToString());
+            //Sala_id sala_id = JsonSerializer.Deserialize<Sala_id>(result);
+            //string Sala = sala.contents["en"];
+            TMP_InputField texto = GameObject.Find("Input num_partida").GetComponentInChildren<TMP_InputField>();
+            texto.text = sala.en;
+
+
             // Place your app specific notification opened logic here.
         }
 
