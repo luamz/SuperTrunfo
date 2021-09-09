@@ -36,7 +36,7 @@ namespace Trunfo
             // Se for o criador da sala, embaralha, divide baralho e envia para o adversário
             if (jogador1.criador)
             {
-                //idDaSala = GameObject.Find("CriacaoDeSala").GetComponent<CriacaoDeSala>().idSala;
+                idDaSala = GameObject.Find("CriacaoDeSala").GetComponent<CriacaoDeSala>().idSala;
                 DividirBaralho();
                 EnviaBaralho();
             }

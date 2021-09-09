@@ -8,20 +8,21 @@ namespace Trunfo
     [RequireComponent(typeof(GerenciadorFirestore))]
     public class CriacaoDeSala : MonoBehaviour
     {
-        private GameBase authManager;
+        //private GameBase authManager;
         private GerenciadorFirestore Gerenciador;
         public string idSala = "";
         void Start()
         {
-            DontDestroyOnLoad(gameObject);
-            authManager = GameObject.Find("AuthManeger").GetComponent<GameBase>();
-            Gerenciador = GetComponent<GerenciadorFirestore>();
+            DontDestroyOnLoad(gameObject.transform.root);
+            //authManager = GameObject.Find("AuthManeger").GetComponent<GameBase>();
+            
         }
-        void OnEnable()
+        public void CriaSala()
         {
+            Gerenciador = GetComponent<GerenciadorFirestore>();
             Gerenciador.criaDocumentIdAleatorio<structSala>(new structSala
             {
-                Criador = authManager.jogadorData.UserToken,
+                Criador = "1",
                 MesaCriada = false,
                 Adversario = ""
             }, "salas",
@@ -30,6 +31,7 @@ namespace Trunfo
                 this.idSala = idSala;
                 //Manda notificação aqui com id da sala
                 StartCoroutine(ChecaSeOOutroJogadorJaEntrou());
+                EnviaNotificacao.Envia(idSala);
             });
         }
         private IEnumerator ChecaSeOOutroJogadorJaEntrou()
