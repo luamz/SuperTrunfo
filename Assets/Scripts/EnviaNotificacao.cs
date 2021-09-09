@@ -9,9 +9,8 @@ namespace Trunfo
 {
     public class EnviaNotificacao : MonoBehaviour
     {
-        public void Envia()
+        public static void Envia(string idSala)
         {
-            string sala_id="aaaa";
 
             var request = WebRequest.Create("https://onesignal.com/api/v1/notifications") as HttpWebRequest;
 
@@ -30,7 +29,8 @@ namespace Trunfo
             byte[] byteArray = Encoding.UTF8.GetBytes("{"
                                             + "\"app_id\": \"96f64d30-af66-4072-acbb-a98c3d4e9763\","
                                             + "\"headings\": {\"en\": \"Venha jogar! Entre na partida \"},"
-                                            + "\"contents\": {\"en\": \""+sala_id+"\"},"
+                                            + "\"contents\": {\"en\": \"uhuuul\"},"
+                                            + "\"data\": {\"sala\": \""+idSala+"\"},"
                                             + "\"filters\": [{\"field\": \"last_session\", \"key\": \"session_time\", \"relation\": \">\", \"value\": \"30.0\"}]}");
                                         
             string responseContent = null;
@@ -49,6 +49,7 @@ namespace Trunfo
                         responseContent = reader.ReadToEnd();
                     }
                 }
+                Debug.Log(responseContent);
             }
             catch (WebException ex)
             {

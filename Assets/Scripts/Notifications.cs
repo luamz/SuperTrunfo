@@ -11,10 +11,14 @@ namespace Trunfo
 {
     public class Notifications : MonoBehaviour
     {
+        private static EntraNaSala Sala;
+        public EntraNaSala sala;
 
         // Start is called before the first frame update
         void Start()
         {
+            Sala = sala;
+            //DontDestroyOnLoad(gameObject.transform.root);
             // Uncomment this method to enable OneSignal Debugging log output 
             // OneSignal.SetLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE);
 
@@ -34,33 +38,25 @@ namespace Trunfo
             OneSignal.PromptForPushNotificationsWithUserResponse(OneSignalPromptForPushNotificationsReponse);
         }
 
-
-
-        public class Sala
-        {
-            public string en;
-            public static Sala CreateFromJSON(string jsonString)
-            {
-                return JsonUtility.FromJson<Sala>(jsonString);
-            }
-        }
-
         // Gets called when the player opens a OneSignal notification.
         public static void OneSignalHandleNotificationOpened(OSNotificationOpenedResult result)
         {
+            try
+            {
+                string cod_sala = result.notification.payload.additionalData["sala"].ToString();
 
-
-
-            SceneManager.LoadScene("EntrarPartida");
-            //string Sala = result.ToString();
-            Sala sala = Sala.CreateFromJSON(result.ToString());
-            //Sala_id sala_id = JsonSerializer.Deserialize<Sala_id>(result);
-            //string Sala = sala.contents["en"];
-            TMP_InputField texto = GameObject.Find("Input num_partida").GetComponentInChildren<TMP_InputField>();
-            texto.text = sala.en;
-
-
-            // Place your app specific notification opened logic here.
+                if (cod_sala != null)
+                {
+                    //SceneManager.LoadScene("EntrarPartida");
+                    Sala.Entra(cod_sala);
+                    //TMP_InputField texto = GameObject.Find("Input num_partida").GetComponentInChildren<TMP_InputField>();
+                    //texto.text = cod_sala;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.Log(ex);
+            }
         }
 
         // iOS - Fires when the user anwser the notification permission prompt.
@@ -76,3 +72,4 @@ namespace Trunfo
         }
     }
 }
+

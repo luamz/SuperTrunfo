@@ -15,8 +15,8 @@ namespace Trunfo
         public string idSala = "";
         void Start()
         {
-            DontDestroyOnLoad(gameObject);
-            authManager = GameObject.Find("AuthManeger").GetComponent<GameBase>();
+            DontDestroyOnLoad(gameObject.transform.root);
+            //authManager = GameObject.Find("AuthManeger").GetComponent<GameBase>();
             Gerenciador = GetComponent<GerenciadorFirestore>();
         }
         public void EntraButton()
@@ -24,16 +24,17 @@ namespace Trunfo
             Entra(codigoDaSala.text);
         }
         /// <summary>Use essa função para entrar na sala</summary>
-        private void Entra(string codigo)
+        public void Entra(string codigo)
         {
             Gerenciador.pegarDoBanco<structSala>("salas", codigo,
             sala =>
             {
                 if (sala.Adversario == "")
                 {
-                    sala.Adversario = authManager.User.UserId;
+                    sala.Adversario = "1";
                     Gerenciador.enviarProBanco(sala, "salas", codigo);
-                    StartCoroutine(ChecaSeCriadorEntrouNaMesa());
+                    //StartCoroutine(ChecaSeCriadorEntrouNaMesa());
+                    SceneManager.LoadScene("Mesa");
                 }
             });
         }
