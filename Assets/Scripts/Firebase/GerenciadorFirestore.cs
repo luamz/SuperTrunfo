@@ -63,6 +63,7 @@ namespace Trunfo
             StructCarta teste = new StructCarta
             {
                 Id = "Baaaaaaaaa",
+                Criterio = 1,
                 JogadorDoTurnoGanha = true
             };
             colocaCamadaProfunda<StructCarta>(teste, "testesubcolecao", "Sala um", "Colec1", "Doc1");
@@ -106,6 +107,7 @@ namespace Trunfo
             StructCarta teste = new StructCarta
             {
                 Id = "B5",
+                Criterio = 1,
                 JogadorDoTurnoGanha = false
             };
             criaDocumentIdAleatorio<StructCarta>(teste, "Valores", retorno => { Debug.Log(retorno); });

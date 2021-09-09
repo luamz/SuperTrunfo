@@ -115,6 +115,7 @@ namespace Trunfo
                 StructCarta cartaVazia = new StructCarta
                 {
                     Id = "",
+                    Criterio = 0,
                     JogadorDoTurnoGanha = false
                 };
 
@@ -191,6 +192,7 @@ namespace Trunfo
             StructCarta carta = new StructCarta
             {
                 Id = Jogador1.CartaNaMao.carta.Identificacao.ToString(),
+                Criterio = index,
                 JogadorDoTurnoGanha = Ganha
             };
 
