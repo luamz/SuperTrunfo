@@ -16,6 +16,8 @@ namespace Trunfo
         public Jogador Jogador1 { get => jogador1; }
         [SerializeField] private Jogador jogador2;
         public Jogador Jogador2 { get => jogador2; }
+        //Sala
+        public string idDaSala = "Sala de teste id gerado";
 
         // Baralho do Jogo
         [SerializeField] private List<Card> Baralho;
@@ -34,6 +36,7 @@ namespace Trunfo
             // Se for o criador da sala, embaralha, divide baralho e envia para o adversário
             if (jogador1.criador)
             {
+                //idDaSala = GameObject.Find("CriacaoDeSala").GetComponent<CriacaoDeSala>().idSala;
                 DividirBaralho();
                 EnviaBaralho();
             }
@@ -97,8 +100,12 @@ namespace Trunfo
                 BaralhoAdversario = CartasIdsAdversario.ToArray()
             };
 
-            // Envia baralho para o firebase            
-            Gerenciador.enviarProBanco<StructBaralho>(baralho, "salas", "Sala teste2");
+            // Envia baralho para o firebase       
+            Gerenciador.colocaCamadaProfunda<StructBaralho>(baralho
+            , "salas"
+            , idDaSala
+            , "InfoDaPartida"
+            , "Baralho");
             jogador1.CompraCarta();
             jogador2.CompraCarta();
             IniciaAPartidaComCartaVazia();
@@ -111,45 +118,52 @@ namespace Trunfo
                     JogadorDoTurnoGanha = false
                 };
 
-                // Envia baralho para o firebase            
-                Gerenciador.enviarProBanco<StructCarta>(cartaVazia, "salas", "Sala teste4");
+                // Envia baralho para o firebase      
+                Gerenciador.colocaCamadaProfunda<StructCarta>(cartaVazia
+                    , "salas"
+                    , idDaSala
+                    , "InfoDaPartida"
+                    , "Carta");
             }
         }
 
         private void RecebeBaralho()
         {
             // Recebe baralho via firebase
-            Gerenciador.pegarDoBanco<StructBaralho>("salas", "Sala teste2",
-                baralho =>
-                {
-                    // Lista do Jogador 1( Não criou a partida)
-                    List<string> listJogador1 = new List<string>(baralho.BaralhoAdversario);
+            Gerenciador.pegaProfundo<StructBaralho>("salas"
+            , idDaSala
+            , "InfoDaPartida"
+            , "Baralho"
+            , baralho =>
+               {
+                   // Lista do Jogador 1( Não criou a partida)
+                   List<string> listJogador1 = new List<string>(baralho.BaralhoAdversario);
 
-                    // Lista do Jogador 2 ( Criador da Partida )
-                    List<string> listJogador2 = new List<string>(baralho.BaralhoCriador);
+                   // Lista do Jogador 2 ( Criador da Partida )
+                   List<string> listJogador2 = new List<string>(baralho.BaralhoCriador);
 
-                    // Jogador1
-                    listJogador1.ForEach(i =>
-                    {
-                        // Converte string para carta
-                        Card CartaAtual = ConverteParaCarta(i);
-                        // Insere no baralho do jogador1
-                        jogador1.Baralho.InsereCarta(CartaAtual);
-                    }
-                    );
+                   // Jogador1
+                   listJogador1.ForEach(i =>
+                  {
+                      // Converte string para carta
+                      Card CartaAtual = ConverteParaCarta(i);
+                      // Insere no baralho do jogador1
+                      jogador1.Baralho.InsereCarta(CartaAtual);
+                  }
+                  );
 
-                    // Jogador2 (Criador)
-                    listJogador2.ForEach(i =>
-                    {
-                        // Converte string para carta
-                        Card CartaAtual = ConverteParaCarta(i);
-                        // Insere no baralho do jogador1
-                        jogador2.Baralho.InsereCarta(CartaAtual);
-                    }
-                    );
-                    jogador1.CompraCarta();
-                    jogador2.CompraCarta();
-                }
+                   // Jogador2 (Criador)
+                   listJogador2.ForEach(i =>
+                  {
+                      // Converte string para carta
+                      Card CartaAtual = ConverteParaCarta(i);
+                      // Insere no baralho do jogador1
+                      jogador2.Baralho.InsereCarta(CartaAtual);
+                  }
+                  );
+                   jogador1.CompraCarta();
+                   jogador2.CompraCarta();
+               }
             );
         }
 
@@ -180,8 +194,12 @@ namespace Trunfo
                 JogadorDoTurnoGanha = Ganha
             };
 
-            // Envia baralho para o firebase            
-            Gerenciador.enviarProBanco<StructCarta>(carta, "salas", "Sala teste4");
+            // Envia baralho para o firebase     
+            Gerenciador.colocaCamadaProfunda<StructCarta>(carta
+                    , "salas"
+                    , idDaSala
+                    , "InfoDaPartida"
+                    , "Carta");
             TrataGanhador(Ganha);
 
         }
@@ -191,17 +209,20 @@ namespace Trunfo
         // checando se o valor mudou
         private void RecebeCartaNaMaoAdversario(string idNaMaoDoAdversario)
         {
-            Gerenciador.pegarDoBanco<StructCarta>("salas", "Sala teste4",
-                carta =>
-                {
-                    string idNoBanco = carta.Id;
-                    if (idNoBanco.Equals(idNaMaoDoAdversario))
-                    {
-                        Card cartaNaMaoAdversario = ConverteParaCarta(idNoBanco);
-                        TrataGanhador(!carta.JogadorDoTurnoGanha);
-                        Jogador2.Animacao.ViraCartaOponente();
-                    }
-                }
+            Gerenciador.pegaProfundo<StructCarta>("salas"
+                , idDaSala
+                , "InfoDaPartida"
+                , "Carta"
+                , carta =>
+                 {
+                     string idNoBanco = carta.Id;
+                     if (idNoBanco.Equals(idNaMaoDoAdversario))
+                     {
+                         Card cartaNaMaoAdversario = ConverteParaCarta(idNoBanco);
+                         TrataGanhador(!carta.JogadorDoTurnoGanha);
+                         Jogador2.Animacao.ViraCartaOponente();
+                     }
+                 }
             );
         }
 
