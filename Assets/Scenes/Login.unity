@@ -3579,7 +3579,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1792264636}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: Trunfo.AuthManager, Assembly-CSharp
         m_MethodName: LoginButton
         m_Mode: 1
         m_Arguments:
@@ -4555,7 +4555,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1792264635}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fcf3e81333d8434383b15412faa3905, type: 3}
+  m_Script: {fileID: 11500000, guid: ff72bd4e447c075429589c33b523eac4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dependencyStatus: 0
@@ -4568,6 +4568,9 @@ MonoBehaviour:
   passwordRegisterField: {fileID: 1484623463}
   passwordRegisterVerifyField: {fileID: 2049681267}
   warningRegisterText: {fileID: 407530996}
+  jogadorPath: 
+  characterPath: 
+  status: 0
 --- !u!4 &1792264637
 Transform:
   m_ObjectHideFlags: 0
@@ -5567,7 +5570,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1792264636}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: Trunfo.AuthManager, Assembly-CSharp
         m_MethodName: RegisterButton
         m_Mode: 1
         m_Arguments:
