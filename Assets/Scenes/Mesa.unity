@@ -2740,7 +2740,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jogador1: {fileID: 1575151181}
   jogador2: {fileID: 876183053}
-  idDaSala: FPlZh8FqZq2wAx17IrTw
+  idDaSala: 
   Baralho:
   - {fileID: 11400000, guid: fe1c1621c52ee6d31be29ba05fe5bcdb, type: 2}
   - {fileID: 11400000, guid: c16aa31c5352ce207991c926267f8e50, type: 2}

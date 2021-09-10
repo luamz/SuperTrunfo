@@ -2,35 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* 
+Essa classe é representa o jogador, que tem como atributos a mesa, 
+seu baralhos (que contém as cartas desse) e métodos relacionados
+à compra de carta e suas animações
+*/
+
 namespace Trunfo
 {
     public class Jogador : MonoBehaviour
     {
         [SerializeField] private Mesa mesa;
         [SerializeField] public CardDisplay CartaNaMao;
-        //Numero do jogador
         public int numeroJogador;
-
-        // É o turno do jogador?
-        public bool seuTurno;
-
-        // O jogador é criador?
+        public bool seuTurno; 
         public bool criador;
-
-
-        // Deque do jogador que armazena as cartas deste
-        [SerializeField] private Baralho baralho;
+        private bool CompraLiberada = true; // Controla se o jogador pode comprar
+        [SerializeField] private Baralho baralho; // Baralho do jogador
         public Baralho Baralho { get => baralho; }
+        public Animacao Animacao { get; private set; } // Animação das cartas do jogador
 
-        public Animacao Animacao { get; private set; }
+
         // Start is called before the first frame update
         void Start()
         {
             CriterioDisplay.criterioEscolhido += LiberaCompra;
             Animacao = CartaNaMao.GetComponent<Animacao>();
         }
-
-        private bool CompraLiberada = true;
+        
         public void CompraCarta()
         {
             if (CompraLiberada &&
@@ -49,16 +48,13 @@ namespace Trunfo
                 CompraLiberada = false;
             }
         }
-        private void ComecaCompraDaCarta()
-        {
-
-        }
 
         private void LiberaCompra(int index)
         {
             CompraLiberada = true;
             if (numeroJogador == 2) Animacao.ViraCartaOponente();
         }
+
         private void DecideLiberarCriterio()
         {
             if (seuTurno && numeroJogador == 1)
@@ -68,12 +64,14 @@ namespace Trunfo
             }
             Animacao.OnTerminaMovimento -= DecideLiberarCriterio;
         }
+
         public void RetornaCarta()
         {
             Animacao.RetornaCarta();
             mesa.Jogador2.Animacao.OnTerminaMovimento -= RetornaCarta;
             Animacao.OnTerminaMovimento += resetaNoFimDoTurno;
         }
+
         private void resetaNoFimDoTurno()
         {
             CartaNaMao.gameObject.SetActive(false);
@@ -81,6 +79,7 @@ namespace Trunfo
             CompraLiberada = true;
             CompraCarta();
         }
+
         public void DaParaAdversario()
         {
             Animacao.DaACartaParaAdversario();
