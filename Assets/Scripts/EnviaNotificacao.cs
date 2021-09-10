@@ -28,8 +28,8 @@ namespace Trunfo
 
             byte[] byteArray = Encoding.UTF8.GetBytes("{"
                                             + "\"app_id\": \"96f64d30-af66-4072-acbb-a98c3d4e9763\","
-                                            + "\"headings\": {\"en\": \"Venha jogar! Entre na partida \"},"
-                                            + "\"contents\": {\"en\": \"uhuuul\"},"
+                                            + "\"headings\": {\"en\": \"Venha jogar!\"},"
+                                            + "\"contents\": {\"en\": \"Alguém te convidou para jogar Super Trunfo\"},"
                                             + "\"data\": {\"sala\": \""+idSala+"\"},"
                                             + "\"filters\": [{\"field\": \"last_session\", \"key\": \"session_time\", \"relation\": \">\", \"value\": \"30.0\"}]}");
                                         

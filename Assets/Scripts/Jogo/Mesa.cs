@@ -16,11 +16,13 @@ namespace Trunfo
         public Jogador Jogador1 { get => jogador1; }
         [SerializeField] private Jogador jogador2;
         public Jogador Jogador2 { get => jogador2; }
+        
         //Sala
         public string idDaSala = "Sala de teste id gerado";
 
         // Baralho do Jogo
         [SerializeField] private List<Card> Baralho;
+        public bool RecebeuBaralho = false;
 
         // Mensagem
         public TextMeshProUGUI DisplayMensagem;
@@ -45,12 +47,13 @@ namespace Trunfo
             else
             {
                 idDaSala = GameObject.Find("EntraNaSala").GetComponent<EntraNaSala>().idSala;
-                RecebeBaralho();
+                StartCoroutine(ChecaSeMesaCarregou());
             }
             StartCoroutine(ChecaSeOOponeteJogouACarta());
             // Envia carta na mão quando o critério é escolhido (Onde a comparação é feita)
             CriterioDisplay.criterioEscolhido += EnviaCartaNaMaoResultado;
         }
+        
         /// <summary>À cada 2 segundos checa se o oponente jogou a carta</summary>
         private IEnumerator ChecaSeOOponeteJogouACarta()
         {
@@ -65,6 +68,15 @@ namespace Trunfo
             }
         }
 
+        private IEnumerator ChecaSeMesaCarregou()
+        {
+           
+            while (!RecebeuBaralho)
+            {
+                yield return new WaitForSeconds(2.5f);
+                RecebeBaralho();
+            }
+        }
         private void DividirBaralho()
         {
 
@@ -168,6 +180,7 @@ namespace Trunfo
                    jogador2.CompraCarta();
                }
             );
+            RecebeuBaralho = true;
         }
 
         private Card ConverteParaCarta(string CartasIds)
@@ -242,7 +255,7 @@ namespace Trunfo
                 InsereCartasNoGanhador(Jogador1, Jogador2);
                 // Mensagem Display
                 if (Jogador2.Baralho.Cartas.Length > 0)
-                    Mensagem("Sua carta ganhou!\nPegue outra carta");
+                    Mensagem("Sua carta ganhou!");
                 else
                 {
                     Mensagem("Você ganhou o jogo!");
@@ -260,7 +273,7 @@ namespace Trunfo
 
                 // Mensagem display
                 if (Jogador1.Baralho.Cartas.Length > 0)
-                    Mensagem("Sua carta perdeu:(\nPegue outra carta");
+                    Mensagem("Sua carta perdeu:(");
                 else if (Jogador1.Baralho.Cartas.Length == 0)
                 {
                     Mensagem("Você perdeu o jogo :(");
@@ -276,11 +289,6 @@ namespace Trunfo
             Jogador2.Animacao.OnTerminaMovimento += Perdedor.DaParaAdversario;
         }
 
-        public void LimparMensagem()
-        {
-            DisplayMensagem.text = "";
-        }
-
         public void Mensagem(string texto)
         {
             DisplayMensagem.text = texto;
@@ -288,10 +296,14 @@ namespace Trunfo
 
         private bool ComparaCriterio(CardDisplay carta1, CardDisplay carta2, int index)
         {
-            Debug.LogFormat("pontos jogador local: {0}, pontos jogador remoto: {1}, no index: {2}",
-             jogador1.CartaNaMao.carta.Pontos[index],
-             jogador2.CartaNaMao.carta.Pontos[index],
-             index);
+            Debug.LogFormat
+            (
+                "Critério jogador local: {0}, Critério jogador remoto: {1}, no index: {2}",
+                jogador1.CartaNaMao.carta.Pontos[index],
+                jogador2.CartaNaMao.carta.Pontos[index],
+                index
+            );
+            
             // Vence a que tiver maior critério
             return carta1.carta.Compara(carta2.carta, index);
         }
