@@ -44,6 +44,7 @@ namespace Trunfo
             // Se não, recebe baralho
             else
             {
+                idDaSala = GameObject.Find("CriacaoDeSala").GetComponent<CriacaoDeSala>().idSala;
                 RecebeBaralho();
             }
             StartCoroutine(ChecaSeOOponeteJogouACarta());
@@ -196,7 +197,6 @@ namespace Trunfo
                 JogadorDoTurnoGanha = Ganha
             };
 
-            // Envia baralho para o firebase     
             Gerenciador.colocaCamadaProfunda<StructCarta>(carta
                     , "salas"
                     , idDaSala
