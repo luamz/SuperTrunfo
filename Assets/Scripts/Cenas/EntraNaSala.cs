@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
@@ -12,11 +13,13 @@ namespace Trunfo
         private GameBase authManager;
         private GerenciadorFirestore Gerenciador;
         public string idSala;
+        public Image img;
 
 
-        void Start()
+        void Awake()
         {
             DontDestroyOnLoad(gameObject.transform.root);
+            //img.color = Color.green;
             Notifications.Redireciona += SetIdSala;
             //authManager = GameObject.Find("AuthManeger").GetComponent<GameBase>();
 
@@ -24,11 +27,15 @@ namespace Trunfo
 
         private void SetIdSala(string idSala)
         {
+            img.color = Color.red;
+            
+
             this.idSala = idSala;
         }
 
         public void EntraButton()
         {
+            img.color = Color.blue;
             Entra(idSala);
         }
 
@@ -36,6 +43,8 @@ namespace Trunfo
         public void Entra(string codigo)
         {
             Debug.Log(codigo);
+            
+            img.color = Color.black;
             Gerenciador = GetComponent<GerenciadorFirestore>();
             Debug.Log(Gerenciador);
             Gerenciador.pegarDoBanco<structSala>("salas", codigo,
@@ -45,7 +54,8 @@ namespace Trunfo
                 if (sala.Adversario == "")
                 {
                     Debug.Log("E aqui");
-                    sala.Adversario = "1";
+                    img.color = Color.magenta;
+                    sala.Adversario = "2";
                     Gerenciador.enviarProBanco(sala, "salas", codigo);
                     StartCoroutine(ChecaSeCriadorEntrouNaMesa());
                     //SceneManager.LoadScene("Mesa");
@@ -54,6 +64,7 @@ namespace Trunfo
         }
         private IEnumerator ChecaSeCriadorEntrouNaMesa()
         {
+            img.color = Color.black;
             bool jaEntrou = false;
             //Enquanto ninguém mais entrou, checa a cada segundo
             while (!jaEntrou)
@@ -62,6 +73,7 @@ namespace Trunfo
                 Gerenciador.pegarDoBanco<structSala>("salas", idSala,
                     sala =>
                     {
+                        img.color = Color.yellow;
                         if (sala.MesaCriada)
                             jaEntrou = true;
                     }
