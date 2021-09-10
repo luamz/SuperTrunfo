@@ -44,7 +44,7 @@ namespace Trunfo
             // Se não, recebe baralho
             else
             {
-                idDaSala = GameObject.Find("CriacaoDeSala").GetComponent<CriacaoDeSala>().idSala;
+                idDaSala = GameObject.Find("EntraNaSala").GetComponent<EntraNaSala>().idSala;
                 RecebeBaralho();
             }
             StartCoroutine(ChecaSeOOponeteJogouACarta());
@@ -80,6 +80,7 @@ namespace Trunfo
 
         private void EnviaBaralho()
         {
+            IniciaAPartidaComCartaVazia();
             // Transformando cartas para String
             List<string> CartasIdsCriador = new List<string>();
             List<string> CartasIdsAdversario = new List<string>();
@@ -100,7 +101,7 @@ namespace Trunfo
                 BaralhoCriador = CartasIdsCriador.ToArray(),
                 BaralhoAdversario = CartasIdsAdversario.ToArray()
             };
-
+            
             // Envia baralho para o firebase       
             Gerenciador.colocaCamadaProfunda<StructBaralho>(baralho
             , "salas"
@@ -109,7 +110,7 @@ namespace Trunfo
             , "Baralho");
             jogador1.CompraCarta();
             jogador2.CompraCarta();
-            IniciaAPartidaComCartaVazia();
+            
 
             void IniciaAPartidaComCartaVazia()
             {
