@@ -14,7 +14,8 @@ namespace Trunfo
         //private static EntraNaSala Sala;
         //public EntraNaSala sala;
         public static Action<string> Redireciona;
-
+        private static string salaId="";
+    
 
         // Start is called before the first frame update
         void Start()
@@ -50,8 +51,12 @@ namespace Trunfo
 
                 if (cod_sala != "")
                 {
+                    salaId=cod_sala;
+                    SceneManager.sceneLoaded += SetaIdSala; 
                     SceneManager.LoadScene("EntrarPartida");
-                    Redireciona?.Invoke(cod_sala);
+                    //Redireciona?.Invoke();
+                    // GameObject.Find("Notifications").GetComponent<Notifications>()
+                    // .StartCoroutine(setaId(cod_sala));
 
                 }
             }
@@ -59,6 +64,19 @@ namespace Trunfo
             {
                 Debug.Log(ex);
             }
+        }
+
+
+        private static void SetaIdSala(Scene scene,LoadSceneMode mode){
+            if (scene.name=="EntrarPartida"){
+               Redireciona?.Invoke(salaId); 
+            }
+        }
+
+        private static IEnumerator setaId(string codigo)
+        {
+            yield return null;
+            Redireciona?.Invoke(codigo);
         }
 
         // iOS - Fires when the user anwser the notification permission prompt.

@@ -12,51 +12,46 @@ namespace Trunfo
     {
         private GameBase authManager;
         private GerenciadorFirestore Gerenciador;
-        public string idSala;
+        public string idSala="";
         public Image img;
+        public TextMeshProUGUI Mensagem;
 
 
         void Awake()
         {
             DontDestroyOnLoad(gameObject.transform.root);
-            //img.color = Color.green;
             Notifications.Redireciona += SetIdSala;
             //authManager = GameObject.Find("AuthManeger").GetComponent<GameBase>();
 
         }
 
-        private void SetIdSala(string idSala)
-        {
-            img.color = Color.red;
-            
-
+        public void SetIdSala(string idSala)
+        {  
             this.idSala = idSala;
         }
 
         public void EntraButton()
-        {
-            img.color = Color.blue;
+        { 
+            if (idSala==""){
+                Mensagem.text = "Id sala nulo";
+            }
+            else if (idSala != ""){
+                Mensagem.text = idSala;
+            }
             Entra(idSala);
         }
 
         /// <summary>Use essa função para entrar na sala</summary>
         public void Entra(string codigo)
         {
-            Debug.Log(codigo);
-            
-            img.color = Color.black;
             Gerenciador = GetComponent<GerenciadorFirestore>();
-            Debug.Log(Gerenciador);
             Gerenciador.pegarDoBanco<structSala>("salas", codigo,
             sala =>
             {
-                Debug.Log("Tá chegando aqui");
                 if (sala.Adversario == "")
                 {
-                    Debug.Log("E aqui");
-                    img.color = Color.magenta;
                     sala.Adversario = "2";
-                    Gerenciador.enviarProBanco(sala, "salas", codigo);
+                    Gerenciador.enviarProBanco<structSala>(sala, "salas", codigo);
                     StartCoroutine(ChecaSeCriadorEntrouNaMesa());
                     //SceneManager.LoadScene("Mesa");
                 }
@@ -64,7 +59,6 @@ namespace Trunfo
         }
         private IEnumerator ChecaSeCriadorEntrouNaMesa()
         {
-            img.color = Color.black;
             bool jaEntrou = false;
             //Enquanto ninguém mais entrou, checa a cada segundo
             while (!jaEntrou)
@@ -79,7 +73,21 @@ namespace Trunfo
                     }
                 );
             }
+            SceneManager.sceneLoaded += SetaConfiguracao;
             SceneManager.LoadScene("Mesa");
+        }
+
+        private static void SetaConfiguracao(Scene scene,LoadSceneMode mode){
+            if (scene.name=="Mesa"){
+               Jogador jogador = GameObject.Find("Jogador").GetComponent<Jogador>();
+               jogador.criador = false;
+               jogador.seuTurno = false;
+
+               Jogador oponente = GameObject.Find("Oponente").GetComponent<Jogador>();
+               oponente.criador=true;
+               oponente.seuTurno=true;
+    
+            }
         }
     }
 }

@@ -365,6 +365,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idSala: 
   img: {fileID: 1120347966}
+  Mensagem: {fileID: 369137750}
 --- !u!114 &914718293
 MonoBehaviour:
   m_ObjectHideFlags: 0

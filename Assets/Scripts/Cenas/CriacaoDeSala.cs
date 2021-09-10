@@ -48,6 +48,7 @@ namespace Trunfo
                         {
                             jaEntrou = true;
                             sala.MesaCriada = true;
+                            Gerenciador.enviarProBanco<structSala>(sala, "salas", idSala);
                         }
                     }
                 );
