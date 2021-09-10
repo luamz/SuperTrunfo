@@ -11,16 +11,17 @@ namespace Trunfo
 {
     public class Notifications : MonoBehaviour
     {
-        private static EntraNaSala Sala;
-        public EntraNaSala sala;
+        //private static EntraNaSala Sala;
+        //public EntraNaSala sala;
         public static Action<string> Redireciona;
 
 
         // Start is called before the first frame update
         void Start()
         {
-            Sala = sala;
+            //Sala = sala;
             //DontDestroyOnLoad(gameObject.transform.root);
+            
             // Uncomment this method to enable OneSignal Debugging log output 
             // OneSignal.SetLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE);
 
@@ -47,7 +48,7 @@ namespace Trunfo
             {
                 string cod_sala = result.notification.payload.additionalData["sala"].ToString();
 
-                if (cod_sala != null)
+                if (cod_sala != "")
                 {
                     SceneManager.LoadScene("EntrarPartida");
                     Redireciona?.Invoke(cod_sala);

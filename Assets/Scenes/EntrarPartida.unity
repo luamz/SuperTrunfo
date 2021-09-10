@@ -364,6 +364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   idSala: 
+  img: {fileID: 1120347966}
 --- !u!114 &914718293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -402,7 +403,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a306b69490ddedc44948db2edd3c1360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sala: {fileID: 914718292}
 --- !u!1 &1120347964
 GameObject:
   m_ObjectHideFlags: 0
