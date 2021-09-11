@@ -38,7 +38,7 @@ namespace Trunfo
         }
 
         // Start is called before the first frame update
-        void Awake()
+        void Start()
         {
             card_display = GetComponent<CardDisplay>();
             card_display.SetaVerso();
@@ -104,7 +104,7 @@ namespace Trunfo
             protected readonly RectTransform carta;
             protected readonly transformInfo posicaoInicial;
             protected readonly transformInfo posicaoFinal;
-            private readonly float vel;
+            private readonly float vel=1;
             protected float count = 0;
             protected Animacao rotacao;
             public MoveStrategy(transformInfo posicaoInicial,
@@ -132,11 +132,13 @@ namespace Trunfo
                 {
                     carta.position = Vector3.Lerp(posicaoInicial.position, posicaoFinal.position, count);
                     carta.rotation = Quaternion.Lerp(posicaoInicial.rotation, posicaoFinal.rotation, count);
-                    count += vel * Time.deltaTime;
+                    count += vel;
                 }
                 else if (!jaDisparouEvento)
                 {
                     jaDisparouEvento = true;
+                    carta.position = Vector3.Lerp(posicaoInicial.position, posicaoFinal.position, 1);
+                    carta.rotation = Quaternion.Lerp(posicaoInicial.rotation, posicaoFinal.rotation, 1);
                     rotacao.OnTerminaMovimento?.Invoke();
                 }
             }
