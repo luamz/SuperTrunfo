@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+// Estrutura de dados para guardar os dados em fila e escalar o baralho baseado na quantidade de cartas
 namespace Trunfo
 {
     public class Baralho : MonoBehaviour

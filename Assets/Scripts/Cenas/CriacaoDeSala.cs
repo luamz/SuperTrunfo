@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+// Modulo responsavel pela criacao de sala
 namespace Trunfo
 {
     [RequireComponent(typeof(GerenciadorFirestore))]

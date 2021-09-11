@@ -63,10 +63,9 @@ namespace Trunfo
             }
         }
 
-        // iOS - Fires when the user anwser the notification permission prompt.
+        // iOS - É iniciada quando o usuario responde o prompt de permissão de notificação
         private void OneSignalPromptForPushNotificationsReponse(bool accepted)
         {
-            // Optional callback if you need to know when the user accepts or declines notification permissions.
         }
 
         void Update()
