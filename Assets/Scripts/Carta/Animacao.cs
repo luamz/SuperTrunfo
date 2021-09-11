@@ -10,13 +10,11 @@ namespace Trunfo
         private RectTransform carta;
         [SerializeField] private RectTransform transformFinal;
         [SerializeField] private RectTransform transformBaralhoAdversario;
-        [SerializeField] private float vel = 1f;
+        [SerializeField] private float vel;
         private transformInfo posicaoInicial;
         private transformInfo posicaoInicialAdversario;
         private transformInfo posicaoFinal;
-        // private float count = 0;
         private CardDisplay card_display;
-        // private bool frente = false;
         private MoveStrategy moveStrategyAtual;
         private ViraNaMetadeStrategy compraCarta;
         private DefaultMoveStrategy compraOponente;
@@ -132,7 +130,7 @@ namespace Trunfo
                 {
                     carta.position = Vector3.Lerp(posicaoInicial.position, posicaoFinal.position, count);
                     carta.rotation = Quaternion.Lerp(posicaoInicial.rotation, posicaoFinal.rotation, count);
-                    count += vel;
+                    count += vel * Time.deltaTime;
                 }
                 else if (!jaDisparouEvento)
                 {

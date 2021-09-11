@@ -21,11 +21,6 @@ namespace Trunfo
 
             request.Headers.Add("authorization", "Basic YzE4NTU5MjItOGZiMy00MTQ0LTgwZTUtOGZlNTYxMTY2NzUw");
 
-            // byte[] byteArray = Encoding.UTF8.GetBytes("{"
-            //                                         + "\"app_id\": \"96f64d30-af66-4072-acbb-a98c3d4e9763\","
-            //                                         + "\"contents\": {\"en\": \" e agora victoria grayson ?\"},"
-            //                                         + "\"included_segments\": [\"All\"]}");
-
             byte[] byteArray = Encoding.UTF8.GetBytes("{"
                                             + "\"app_id\": \"96f64d30-af66-4072-acbb-a98c3d4e9763\","
                                             + "\"headings\": {\"en\": \"Venha jogar!!\"},"
