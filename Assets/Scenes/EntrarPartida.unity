@@ -363,7 +363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4059403e02d060a439d52cfa7c2b1545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idSala: 
+  idSala: D0irWnGNNDlh03nRsamR
   img: {fileID: 1120347966}
   Mensagem: {fileID: 369137750}
 --- !u!114 &914718293

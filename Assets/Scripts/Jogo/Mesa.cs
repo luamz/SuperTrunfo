@@ -120,8 +120,8 @@ namespace Trunfo
             , idDaSala
             , "InfoDaPartida"
             , "Baralho");
-            jogador1.CompraCarta();
             jogador2.CompraCarta();
+            jogador1.CompraCarta();
             
 
             void IniciaAPartidaComCartaVazia()
@@ -176,8 +176,8 @@ namespace Trunfo
                       jogador2.Baralho.InsereCarta(CartaAtual);
                   }
                   );
-                   jogador1.CompraCarta();
                    jogador2.CompraCarta();
+                   jogador1.CompraCarta();
                }
             );
             RecebeuBaralho = true;

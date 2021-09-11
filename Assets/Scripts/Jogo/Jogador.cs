@@ -39,13 +39,28 @@ namespace Trunfo
                 var carta = baralho.CompraCarta();
                 CartaNaMao.carta = carta;
                 CartaNaMao.gameObject.SetActive(true);
-                if (numeroJogador == 1)
+                StartCoroutine(ComecaCompraDaCarta());
+                CompraLiberada = false;
+            }
+        }
+
+        private IEnumerator ComecaCompraDaCarta()
+        {       
+            if (numeroJogador == 1)
                 {
+                    do{
+                    yield return null;
                     Animacao.CompraCarta();
+                    
+                } while (!Animacao.enabled);
+                    
                     Animacao.OnTerminaMovimento += DecideLiberarCriterio;
                 }
-                if (numeroJogador == 2) Animacao.CompraCartaOponente();
-                CompraLiberada = false;
+            else {
+                do{
+                    yield return null;
+                    Animacao.CompraCartaOponente();
+                } while (!Animacao.enabled);
             }
         }
 

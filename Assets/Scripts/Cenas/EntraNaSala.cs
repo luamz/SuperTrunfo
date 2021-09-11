@@ -55,6 +55,9 @@ namespace Trunfo
                     StartCoroutine(ChecaSeCriadorEntrouNaMesa());
                     //SceneManager.LoadScene("Mesa");
                 }
+                else{
+                    Mensagem.text = "Alguém já entrou\nantes de você :(";
+                }
             });
         }
         private IEnumerator ChecaSeCriadorEntrouNaMesa()
@@ -67,7 +70,7 @@ namespace Trunfo
                 Gerenciador.pegarDoBanco<structSala>("salas", idSala,
                     sala =>
                     {
-                        img.color = Color.yellow;
+                        Mensagem.text = "Entrando na sala...";
                         if (sala.MesaCriada)
                             jaEntrou = true;
                     }

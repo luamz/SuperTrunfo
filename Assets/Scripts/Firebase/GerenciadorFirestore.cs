@@ -119,7 +119,6 @@ namespace Trunfo
             });
         }
 
-
         public void deletaTeste()
         {   // função exemplo para uso da função  deletaCampo
             deletaCampo("Valor", "Valores", "valorzinho");
