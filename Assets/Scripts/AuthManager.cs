@@ -11,13 +11,13 @@ namespace Trunfo
 {
     public class AuthManager : MonoBehaviour
     {
-        //Firebase variables
+        //variaveis do Firebase
         [Header("Firebase")]
         public DependencyStatus dependencyStatus;
         public FirebaseAuth auth;
         public FirebaseUser User;
 
-        //Login variables
+        //variaveis do Login
         [Header("Login")]
         public TMP_InputField emailLoginField;
         public TMP_InputField passwordLoginField;
@@ -25,7 +25,7 @@ namespace Trunfo
         public TMP_Text confirmLoginText;
         public JogadorStruct jogadorData;
 
-        //Register variables
+        //variaveis do Register
         [Header("Register")]
         public TMP_InputField usernameRegisterField;
         public TMP_InputField emailRegisterField;
@@ -38,13 +38,13 @@ namespace Trunfo
 
         void Awake()
         {
-            //Check that all of the necessary dependencies for Firebase are present on the system
+            //Checa se todas dependencias necessarias para o Firebase estão no sistema
             FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
             {
                 dependencyStatus = task.Result;
                 if (dependencyStatus == DependencyStatus.Available)
                 {
-                    //If they are avalible Initialize Firebase
+                    //Se estiverem inicializa o Firebase
                     InitializeFirebase();
                 }
                 else
@@ -63,21 +63,21 @@ namespace Trunfo
 
         private void InitializeFirebase()
         {
-            //Set the authentication instance object
+            //Define a instancia do objeto de autenticação
             auth = FirebaseAuth.DefaultInstance;
         }
 
-        //Function for the login button
+        //Funçao para o botão de login
         public void LoginButton()
         {
-            //Call the login coroutine passing the email and password
+            //Chama a corotina de login passando o email e a senha
             StartCoroutine(Login(emailLoginField.text, passwordLoginField.text));
         }
 
-        //Function for the register button
+        //Funcao para o botao de cadastro
         public void RegisterButton()
         {
-            //Call the register coroutine passing the email, password, and username
+            //Chama a corotina de cadastro passando o email, a senha e o nome de usuario
             StartCoroutine(Register(emailRegisterField.text, passwordRegisterField.text, usernameRegisterField.text));
         }
 
@@ -93,14 +93,14 @@ namespace Trunfo
 
         private IEnumerator Login(string _email, string _password)
         {
-            //Call the Firebase auth signin function passing the email and password
+            //Chama a funçao de sign in do Firebase passando o email e a senha
             var LoginTask = auth.SignInWithEmailAndPasswordAsync(_email, _password);
-            //Wait until the task completes
+            //Espera até que a task complete
             yield return new WaitUntil(predicate: () => LoginTask.IsCompleted);
 
             if (LoginTask.Exception != null)
             {
-                //If there are errors handle them
+                //Se tiver erros lide com eles
                 Debug.LogWarning(message: $"Failed to register task with {LoginTask.Exception}");
                 FirebaseException firebaseEx = LoginTask.Exception.GetBaseException() as FirebaseException;
                 AuthError errorCode = (AuthError)firebaseEx.ErrorCode;
@@ -129,8 +129,8 @@ namespace Trunfo
             }
             else
             {
-                //User is now logged in
-                //Now get the result
+                //Usuario agora esta logado
+                //Agora pega o resultado
                 this.User = LoginTask.Result;
                 this.status = true;
                 this.jogadorData = new JogadorStruct
@@ -151,24 +151,25 @@ namespace Trunfo
         {
             if (_username == "")
             {
-                //If the username field is blank show a warning
+                //Se o campo do nome de usuario estiver vazio mostra um aviso
                 warningRegisterText.text = "Missing Username";
             }
             else if (passwordRegisterField.text != passwordRegisterVerifyField.text)
             {
-                //If the password does not match show a warning
+                //Se a senha não for igual mostra um aviso
                 warningRegisterText.text = "Password Does Not Match!";
             }
             else
             {
-                //Call the Firebase auth signin function passing the email and password
+                //Chama a funçao de sign in do Firebase passando o email e a senha
                 var RegisterTask = auth.CreateUserWithEmailAndPasswordAsync(_email, _password);
-                //Wait until the task completes
+                
+                //Espera até que a task complete
                 yield return new WaitUntil(predicate: () => RegisterTask.IsCompleted);
 
                 if (RegisterTask.Exception != null)
                 {
-                    //If there are errors handle them
+                    //Se tiver erros lide com eles
                     Debug.LogWarning(message: $"Failed to register task with {RegisterTask.Exception}");
                     FirebaseException firebaseEx = RegisterTask.Exception.GetBaseException() as FirebaseException;
                     AuthError errorCode = (AuthError)firebaseEx.ErrorCode;
@@ -193,23 +194,24 @@ namespace Trunfo
                 }
                 else
                 {
-                    //User has now been created
-                    //Now get the result
+                    //Usuario agora foi criado
+                    //Agora pega o resultado
                     User = RegisterTask.Result;
 
                     if (User != null)
                     {
-                        //Create a user profile and set the username
+                        //Cria o perfil de usuario e define o nome de usuario
                         UserProfile profile = new UserProfile { DisplayName = _username };
 
                         //Call the Firebase auth update user profile function passing the profile with the username
+                        //Chama a função da autenticação do firebase para atualizar o perfilpassando o perfil com o nome de usuario
                         var ProfileTask = User.UpdateUserProfileAsync(profile);
-                        //Wait until the task completes
+                        //Espera até que a task complete
                         yield return new WaitUntil(predicate: () => ProfileTask.IsCompleted);
 
                         if (ProfileTask.Exception != null)
                         {
-                            //If there are errors handle them
+                            //Se tiver erros lide com eles
                             Debug.LogWarning(message: $"Failed to register task with {ProfileTask.Exception}");
                             FirebaseException firebaseEx = ProfileTask.Exception.GetBaseException() as FirebaseException;
                             AuthError errorCode = (AuthError)firebaseEx.ErrorCode;
@@ -217,8 +219,8 @@ namespace Trunfo
                         }
                         else
                         {
-                            //Username is now set
-                            //Now return to login screen
+                            //Nome de usuario agora definido
+                            //Agora retorne para a tela de login
                             this.jogadorPath = "jogador/" + User.UserId;
                             JogadorStruct jogadorData = new JogadorStruct
                             {

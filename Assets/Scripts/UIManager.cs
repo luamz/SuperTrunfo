@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Responsavel por genrenciar a UI dos menus
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
 
-    //Screen object variables
+    //Variaveis do objeto da tela
     public GameObject loginUI;
     public GameObject registerUI;
 
@@ -23,13 +24,13 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    //Functions to change the login screen UI
-    public void LoginScreen() //Back button
+    //Funções para mudar a UI da tela de login
+    public void LoginScreen() //Botão para voltar para a tela de login
     {
         loginUI.SetActive(true);
         registerUI.SetActive(false);
     }
-    public void RegisterScreen() // Regester button
+    public void RegisterScreen() // Botão de cadastro
     {
         loginUI.SetActive(false);
         registerUI.SetActive(true);

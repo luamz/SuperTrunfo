@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+// Modulo responsavel por mostrar e definir o criterio
 namespace Trunfo
 {
     public class CriterioDisplay : MonoBehaviour

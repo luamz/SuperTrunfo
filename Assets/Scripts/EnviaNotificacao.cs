@@ -5,6 +5,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 
+//Esse modulo envia notificacao para o usuario
 namespace Trunfo
 {
     public class EnviaNotificacao : MonoBehaviour

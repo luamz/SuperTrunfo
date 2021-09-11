@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
+// Modulo responsavel por gerenciar a entrada do usuario na sala
 namespace Trunfo
 {
     [RequireComponent(typeof(GerenciadorFirestore))]
