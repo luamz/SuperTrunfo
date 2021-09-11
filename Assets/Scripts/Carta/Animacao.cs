@@ -100,7 +100,7 @@ namespace Trunfo
             protected readonly RectTransform carta;
             protected readonly transformInfo posicaoInicial;
             protected readonly transformInfo posicaoFinal;
-            private readonly float vel=1;
+            private readonly float vel;
             protected float count = 0;
             protected Animacao rotacao;
             public MoveStrategy(transformInfo posicaoInicial,
