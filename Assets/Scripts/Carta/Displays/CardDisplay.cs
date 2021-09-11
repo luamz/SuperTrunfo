@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+//Modulo responsavel pelo controle da imagem da carta
 namespace Trunfo
 {
     [SelectionBase]//faz com que esse objeto seja selecionado quando estiver numa hierarquia
@@ -42,6 +43,7 @@ namespace Trunfo
         }
         public void SetaFrente()
         {
+            SetaVerso();
             ModeloDeFundo.sprite = Frente;
             nome.text = card.Nome;
             identificacao.text = card.Identificacao.ToString();

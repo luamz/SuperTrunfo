@@ -2,7 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Firebase.Firestore;
+using Firebase.Extensions;
 
+// Estrutura de dados das cartas
 namespace Trunfo
 {
     [CreateAssetMenu(menuName = "ScriptableObjects/Card", fileName = "New Card")]

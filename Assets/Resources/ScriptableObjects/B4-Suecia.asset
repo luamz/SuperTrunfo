@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: B4-Suecia
   m_EditorClassIdentifier: 
   tipo: {fileID: 11400000, guid: 3b7656e1ad02d9d4384fe51960e18f14, type: 2}
-  identificacao: B4
-  nome: SUECIA
+  identificacao:
+    numero: 4
+    grupo: 66
+  nome: "SU\xC9CIA"
   pontos:
   - 10.3
   - 447.4

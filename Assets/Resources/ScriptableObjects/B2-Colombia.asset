@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: B2-Colombia
   m_EditorClassIdentifier: 
   tipo: {fileID: 11400000, guid: 3b7656e1ad02d9d4384fe51960e18f14, type: 2}
-  identificacao: B2
-  nome: COLOMBIA
+  identificacao:
+    numero: 2
+    grupo: 66
+  nome: "COL\xD4MBIA"
   pontos:
   - 50.3
   - 1141.7

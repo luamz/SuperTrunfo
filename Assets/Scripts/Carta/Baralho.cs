@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+// Estrutura de dados para guardar os dados em fila e escalar o baralho baseado na quantidade de cartas
 namespace Trunfo
 {
     public class Baralho : MonoBehaviour
@@ -11,11 +13,8 @@ namespace Trunfo
         [SerializeField] private Vector3 posicaoQuandoInteiro;
         [SerializeField] private Vector3 posicaoQuandoTemUmSobrando;
         [SerializeField] private int quantTotalDeCartas;
-        [Range(0f, 1f)]
-        [SerializeField] private float porcAtual = 0f;
         private Queue<Card> cartas = new Queue<Card>();
         public Card[] Cartas { get => cartas.ToArray(); }
-
 
         // private void OnValidate()
         // {
@@ -24,6 +23,7 @@ namespace Trunfo
         //     rectTransform.localPosition = Vector3.Lerp(posicaoQuandoTemUmSobrando, posicaoQuandoInteiro,
         //                                          porcAtual);
         // }
+
         void Awake()
         {
             rectTransform = GetComponent<RectTransform>();
@@ -34,12 +34,13 @@ namespace Trunfo
             MoveMascara(-1);
             return cartas.Dequeue();
         }
+
         private void MoveMascara(int delta)
         {
             if (cartas.Count + delta == 0) GetComponent<Image>().enabled = false;
             float completude = (float)(cartas.Count + delta) / quantTotalDeCartas;
             rectTransform.localPosition = Vector3.Lerp(posicaoQuandoTemUmSobrando, posicaoQuandoInteiro,
-                                                 completude);
+                                                       completude);
         }
 
         public void InsereCarta(Card carta)
@@ -54,8 +55,5 @@ namespace Trunfo
                 this.cartas.Enqueue(carta);
             MoveMascara(0);
         }
-
-
-
     }
 }

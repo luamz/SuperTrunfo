@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: C5-Portugal
   m_EditorClassIdentifier: 
   tipo: {fileID: 11400000, guid: 3b7656e1ad02d9d4384fe51960e18f14, type: 2}
-  identificacao: C5
+  identificacao:
+    numero: 5
+    grupo: 67
   nome: PORTUGAL
   pontos:
   - 10.3

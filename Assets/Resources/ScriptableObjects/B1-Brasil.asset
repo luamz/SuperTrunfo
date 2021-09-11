@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: B1-Brasil
   m_EditorClassIdentifier: 
   tipo: {fileID: 11400000, guid: 3b7656e1ad02d9d4384fe51960e18f14, type: 2}
+  identificacao:
+    numero: 1
+    grupo: 66
   nome: BRASIL
   pontos:
   - 211.5

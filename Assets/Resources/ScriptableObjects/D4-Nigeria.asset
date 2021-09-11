@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: D4-Nigeria
   m_EditorClassIdentifier: 
   tipo: {fileID: 11400000, guid: 3b7656e1ad02d9d4384fe51960e18f14, type: 2}
-  identificacao: D4
-  nome: NIGERIA
+  identificacao:
+    numero: 4
+    grupo: 68
+  nome: "NIG\xC9RIA"
   pontos:
   - 200.9
   - 923.7
