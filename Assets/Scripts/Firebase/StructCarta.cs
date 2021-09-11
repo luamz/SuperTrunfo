@@ -1,5 +1,6 @@
 using Firebase.Firestore;
 
+//Struct que representa a carta jogada no firestore
 namespace Trunfo
 {
     [FirestoreData]

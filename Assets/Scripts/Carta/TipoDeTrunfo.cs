@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-
+// Estrutura de carta pro tipo de trunfo
 namespace Trunfo
 {
     [CreateAssetMenu(menuName = "ScriptableObjects/TipoDeCarta", fileName = "new TipoDeTrunfo")]

@@ -1,5 +1,5 @@
 using Firebase.Firestore;
-
+//Struct que representa o jogador
 namespace Trunfo
 {
     [FirestoreData]
