@@ -4,6 +4,7 @@ using Firebase.Auth;
 using UnityEngine;
 using Firebase.Firestore;
 
+// Definir o usuario como offline no banco
 namespace Trunfo
 {
     public class GameBase : AuthManager

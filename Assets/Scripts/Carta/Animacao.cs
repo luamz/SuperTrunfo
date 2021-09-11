@@ -35,7 +35,6 @@ namespace Trunfo
             }
         }
 
-        // Start is called before the first frame update
         void Start()
         {
             card_display = GetComponent<CardDisplay>();
@@ -59,7 +58,6 @@ namespace Trunfo
             moveStrategyAtual = cartaParada;
         }
 
-        // Update is called once per frame
         void Update()
         {
             moveStrategyAtual.moveCarta();
