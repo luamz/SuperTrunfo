@@ -7,7 +7,7 @@ Desenvolvido na disciplina de Laboratório de Dispositivos Móveis do curso de C
 
 ## Build
 Versão do Unity: 2020.3.13f1.
-Sâo necessários os módulos SDK do Android S, Firebase e OneSignal instalados.
+É necessário a instalação dos módulos SDK do Android S, Firebase e OneSignal.
 Deixar o Target API Level como Automatic em Player Preferences.
 É necessário configurar as chaves do OneSignal (App key e API key)
 
