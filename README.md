@@ -1,4 +1,4 @@
-[Read this in English](https://github.com/luamz/super-trunfo/blob/master/README.en.md)
+[Read this page in English](https://github.com/luamz/super-trunfo/blob/master/README.en.md)
 <img align="right"  src="https://user-images.githubusercontent.com/50959073/135759876-db5645fb-167f-48c8-93a6-c02e86a07aca.png" data-canonical-src="https://gyazo.com/eb5c5741b6a9a16c692170a41a49c858.png" width="208" height="294" />
 
 # Super Trunfo
